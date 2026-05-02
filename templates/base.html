@@ -151,8 +151,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            AOS.init({ duration: 1000, once: true });
+            AOS.init({ 
+                duration: 1000, 
+                once: true,
+                offset: 100,
+                delay: 50
+            });
             
             const nav = document.getElementById('navbar');
             if (nav) {
