@@ -53,9 +53,12 @@ with app.app_context():
     
     if not Service.query.first():
         services = [
-            Service(title="Automation Workflows", description="Sophisticated welcome, abandoned cart, and post-purchase sequences that convert.", icon_name="zap", category="email", order=1),
-            Service(title="Newsletter Design", description="Beautiful, high-converting newsletter templates tailored to your brand voice.", icon_name="mail", category="email", order=2),
-            Service(title="Audience Segmentation", description="Advanced list segmentation to ensure the right message reaches the right person.", icon_name="users", category="email", order=3)
+            Service(title="Email Marketing Strategy", icon_name="bolt", description="Data-driven strategies that turn subscribers into loyal customers.", category="email", order=1),
+            Service(title="Advanced Automation", icon_name="robot", description="Sophisticated flows that nurture leads and drive revenue on autopilot.", category="email", order=2),
+            Service(title="UI/UX Design", icon_name="pen-nib", description="High-converting landing pages and email designs that wow your audience.", category="uiux", order=3),
+            Service(title="Web Development", icon_name="code", description="Modern, responsive websites built with the latest technologies.", category="webdev", order=4),
+            Service(title="Analytics & Reporting", icon_name="chart-line", description="Detailed insights and performance tracking for every campaign.", category="email", order=5),
+            Service(title="A/B Testing", icon_name="flask", description="Continuous optimization to ensure your emails are always performing.", category="email", order=6)
         ]
         db.session.add_all(services)
 
@@ -76,9 +79,9 @@ with app.app_context():
 
     if not SocialLink.query.first():
         socials = [
-            SocialLink(platform="LinkedIn", icon_name="linkedin", link="#", order=1),
-            SocialLink(platform="Twitter", icon_name="twitter", link="#", order=2),
-            SocialLink(platform="Facebook", icon_name="facebook", link="#", order=3)
+            SocialLink(platform="LinkedIn", icon_name="linkedin-in", link="#", order=1),
+            SocialLink(platform="Twitter", icon_name="x-twitter", link="#", order=2),
+            SocialLink(platform="Facebook", icon_name="facebook-f", link="#", order=3)
         ]
         db.session.add_all(socials)
         
