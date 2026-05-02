@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ settings.meta_title }}</title>
+    <meta name="description" content="{{ settings.meta_description }}">
+    
+    <!-- Google Analytics -->
+    {% if settings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.google_analytics_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ settings.google_analytics_id }}');
+    </script>
+    {% endif %}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { navy: "#1E3A5F", teal: "#00C9B1", coral: "#FF7E67" },
+                    boxShadow: { premium: "0 25px 60px -15px rgba(30, 58, 95, 0.08)" }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-white text-navy selection:bg-teal selection:text-white">
+    <!-- Premium Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-6">
+        <div class="container mx-auto px-6 max-w-[1280px]">
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-[32px] px-8 py-4 flex items-center justify-between shadow-premium">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-[#1E3A5F] rounded-full flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[16px] font-bold tracking-tight text-[#1E3A5F] leading-none">Shakil Ahmed</span>
+                        <span class="text-[12px] text-slate-500 font-medium">Email Marketing Expert</span>
+                    </div>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-12">
+                    <div class="flex items-center gap-10">
+                        <a href="#services" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">Services</a>
+                        <a href="#portfolio" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">Portfolio</a>
+                        <a href="#about" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">About</a>
+                        <a href="#contact" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">Contact</a>
+                    </div>
+                    <a href="#contact" class="px-6 py-2.5 bg-gradient-to-r from-navy to-teal text-white rounded-full text-[14px] font-bold hover:shadow-lg hover:shadow-teal-500/10 transition-all">Let's Talk</a>
+                </div>
+                
+                <button class="md:hidden text-navy">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Figma-matched Footer Section -->
+    <footer class="bg-gradient-to-r from-[#1E3A5F] to-[#00C9B1] pt-24 pb-12 relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-[1280px] relative z-10">
+            <div class="grid lg:grid-cols-4 gap-16 mb-20">
+                <!-- Column 1: Brand -->
+                <div>
+                    <a href="/" class="flex items-center gap-3 mb-8 group">
+                        <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[16px] font-bold tracking-tight text-white leading-none">Shakil Ahmed</span>
+                            <span class="text-[12px] text-white/70 font-medium">Email Marketing Expert</span>
+                        </div>
+                    </a>
+                    <p class="text-white/80 text-[15px] max-w-sm mb-10 leading-relaxed font-medium">
+                        Transforming businesses through data-driven email marketing and full-stack development.
+                    </p>
+                </div>
+                
+                <!-- Column 2: Services -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Services</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#services" class="text-white/70 hover:text-white transition-colors font-medium">Email Marketing</a></li>
+                        <li><a href="#services" class="text-white/70 hover:text-white transition-colors font-medium">Email Automation</a></li>
+                        <li><a href="#services" class="text-white/70 hover:text-white transition-colors font-medium">UI/UX Design</a></li>
+                        <li><a href="#services" class="text-white/70 hover:text-white transition-colors font-medium">Web Development</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#portfolio" class="text-white/70 hover:text-white transition-colors font-medium">Portfolio</a></li>
+                        <li><a href="#about" class="text-white/70 hover:text-white transition-colors font-medium">About</a></li>
+                        <li><a href="#contact" class="text-white/70 hover:text-white transition-colors font-medium">Contact</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-white transition-colors font-medium">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4: Connect -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Connect</h4>
+                    <div class="flex gap-4 mb-10">
+                        {% for s in social_links %}
+                        <a href="{{ s.link }}" class="w-10 h-10 border border-white/30 hover:bg-white/10 text-white rounded-full flex items-center justify-center transition-all duration-300">
+                            <i class="fa-brands fa-{{ s.icon_name }} text-lg"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 border border-white/30 rounded-full text-white text-xs font-bold">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                            Mailchimp Pro
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 border border-white/30 rounded-full text-white text-xs font-bold">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                            Klaviyo Partner
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-12 border-t border-white/10 text-center">
+                <p class="text-white/60 text-sm font-medium">© 2026 Shakil Ahmed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            AOS.init({ duration: 1000, once: true });
+            
+            const nav = document.getElementById('navbar');
+            if (nav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('py-4');
+                        const container = nav.querySelector('.container');
+                        if (container) container.classList.add('max-w-[1200px]');
+                    } else {
+                        nav.classList.remove('py-4');
+                        const container = nav.querySelector('.container');
+                        if (container) container.classList.remove('max-w-[1200px]');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
