@@ -61,6 +61,10 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                     Social Links
                 </button>
+                <button onclick="showSection('partners')" id="link-partners" class="sidebar-link w-full text-left px-6 py-4 rounded-xl font-bold text-slate-400 hover:bg-slate-50 transition-all flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect width="14" height="10" x="5" y="11" rx="2"/></svg>
+                    Partners
+                </button>
             </nav>
         </div>
         
@@ -159,9 +163,14 @@
                     <div class="bg-slate-50 rounded-3xl p-6 border border-slate-100 relative group">
                         <div class="text-3xl font-black text-navy mb-1">{{ stat.value }}{{ stat.suffix }}</div>
                         <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">{{ stat.label }}</div>
-                        <a href="{{ url_for('delete_stat', id=stat.id) }}" class="absolute top-4 right-4 text-red-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </a>
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("stat", {{ stat.to_dict()|tojson }})' class="text-slate-300 hover:text-navy transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_stat', id=stat.id) }}" class="text-red-300 hover:text-red-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -221,9 +230,14 @@
                             <h3 class="font-bold text-navy mb-2">{{ service.title }}</h3>
                             <p class="text-sm text-slate-500 leading-relaxed">{{ service.description }}</p>
                         </div>
-                        <a href="{{ url_for('delete_service', id=service.id) }}" class="absolute top-6 right-6 text-red-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </a>
+                        <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("service", {{ service.to_dict()|tojson }})' class="text-slate-300 hover:text-navy transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_service', id=service.id) }}" class="text-red-300 hover:text-red-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -231,7 +245,7 @@
                 <form action="{{ url_for('add_service') }}" method="POST" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" name="title" placeholder="Service Title" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
-                        <input type="text" name="icon_name" placeholder="Icon Name (e.g. zap, mail)" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                        <input type="text" name="icon_name" placeholder="Icon Name (e.g. zap, mail) - get from fontawesome.com" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
                         <select name="category" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy appearance-none">
                             <option value="email">Email Marketing</option>
                             <option value="uiux">UI/UX Design</option>
@@ -256,9 +270,14 @@
                     <div class="bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 relative group">
                         <div class="h-40"><img src="{{ item.image_path }}" class="w-full h-full object-cover"></div>
                         <div class="p-6"><h3 class="font-bold text-navy mb-1">{{ item.title }}</h3><div class="text-xs font-bold text-teal uppercase tracking-widest">{{ item.result_text }}</div></div>
-                        <a href="{{ url_for('delete_portfolio', id=item.id) }}" class="absolute top-4 right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-red-500 opacity-0 group-hover:opacity-100 transition-all shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </a>
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("portfolio", {{ item.to_dict()|tojson }})' class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-navy shadow-sm hover:bg-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_portfolio', id=item.id) }}" class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-red-500 shadow-sm hover:bg-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -293,9 +312,14 @@
                             <p class="text-xs font-bold text-slate-400 uppercase mb-3">{{ t.client_role }}</p>
                             <p class="text-sm text-slate-500 leading-relaxed italic">"{{ t.content }}"</p>
                         </div>
-                        <a href="{{ url_for('delete_testimonial', id=t.id) }}" class="absolute top-6 right-6 text-red-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </a>
+                        <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("testimonial", {{ t.to_dict()|tojson }})' class="text-slate-300 hover:text-navy transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_testimonial', id=t.id) }}" class="text-red-300 hover:text-red-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -330,22 +354,95 @@
                             <h3 class="font-bold text-navy">{{ s.platform }}</h3>
                             <p class="text-[10px] text-slate-400 truncate max-w-[120px]">{{ s.link }}</p>
                         </div>
-                        <a href="{{ url_for('delete_social', id=s.id) }}" class="absolute top-4 right-4 text-red-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </a>
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("social", {{ s.to_dict()|tojson }})' class="text-slate-300 hover:text-navy transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_social', id=s.id) }}" class="text-red-300 hover:text-red-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
                 <hr class="border-slate-100 mb-10">
                 <form action="{{ url_for('add_social') }}" method="POST" class="grid md:grid-cols-4 gap-6 items-end">
                     <input type="text" name="platform" placeholder="Platform" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
-                    <input type="text" name="icon_name" placeholder="Icon (e.g. linkedin)" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                    <input type="text" name="icon_name" placeholder="Icon (e.g. linkedin) - fontawesome.com" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
                     <input type="text" name="link" placeholder="URL" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
                     <button type="submit" class="w-full bg-teal text-white font-bold py-4 rounded-2xl shadow-xl shadow-teal-500/10 hover:bg-teal/90 transition-all">Add Social</button>
                 </form>
             </div>
         </div>
+
+        <!-- Partners Section -->
+        <div id="section-partners" class="section-content hidden space-y-8">
+            <div class="bg-white rounded-[32px] p-10 shadow-premium border border-slate-50">
+                <h2 class="text-xl font-extrabold text-navy mb-8 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-teal rounded-full"></span>
+                    Manage Partners & Brands
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    {% for p in partners %}
+                    <div class="bg-slate-50 rounded-3xl p-6 border border-slate-100 relative group flex flex-col items-center text-center">
+                        {% if p.logo_path %}
+                        <img src="{{ p.logo_path }}" class="h-12 w-auto mb-4 object-contain">
+                        {% else %}
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-teal mb-4 font-black text-xs">{{ p.icon_name }}</div>
+                        {% endif %}
+                        <h3 class="font-bold text-navy text-sm">{{ p.name }}</h3>
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick='openEditModal("partner", {{ p.to_dict()|tojson }})' class="text-slate-300 hover:text-navy transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <a href="{{ url_for('delete_partner', id=p.id) }}" class="text-red-300 hover:text-red-500 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr class="border-slate-100 mb-10">
+                <form action="{{ url_for('add_partner') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                        <div class="lg:col-span-1">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Brand Name</label>
+                            <input type="text" name="name" placeholder="e.g. Google" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                        </div>
+                        <div class="lg:col-span-1">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">FA Icon Name <a href="https://fontawesome.com/search?o=r&m=free&f=brands" target="_blank" class="text-teal lowercase">(find brands here)</a></label>
+                            <input type="text" name="icon_name" placeholder="e.g. google" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                        </div>
+                        <div class="lg:col-span-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Brand Logo (Optional)</label>
+                            <input type="file" name="logo" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                        </div>
+                    </div>
+                    <div class="flex justify-end pt-4"><button type="submit" class="px-10 py-4 bg-teal text-white rounded-full font-bold shadow-xl shadow-teal-500/10 hover:bg-teal/90 transition-all">Add Partner</button></div>
+                </form>
+            </div>
+        </div>
     </main>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="fixed inset-0 bg-navy/60 backdrop-blur-sm z-[60] hidden items-center justify-center p-6">
+        <div class="bg-white w-full max-w-2xl rounded-[32px] shadow-2xl overflow-hidden animate-fade-in">
+            <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+                <h2 id="modalTitle" class="text-xl font-extrabold text-navy">Edit Item</h2>
+                <button onclick="closeModal()" class="w-10 h-10 bg-white border border-slate-100 rounded-full flex items-center justify-center text-slate-400 hover:text-navy transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="editForm" method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+                <div id="modalFields" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Fields will be injected here by JS -->
+                </div>
+                <div class="flex justify-end pt-4">
+                    <button type="submit" class="px-10 py-4 bg-navy text-white rounded-full font-bold shadow-xl shadow-navy/20 hover:bg-navy/90 transition-all">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         function showSection(id) {
@@ -354,6 +451,63 @@
             document.getElementById('section-' + id).classList.remove('hidden');
             document.getElementById('link-' + id).classList.add('sidebar-link-active');
         }
+
+        const modal = document.getElementById('editModal');
+        const editForm = document.getElementById('editForm');
+        const modalFields = document.getElementById('modalFields');
+        const modalTitle = document.getElementById('modalTitle');
+
+        function openEditModal(type, data) {
+            modalTitle.innerText = "Edit " + type.charAt(0).toUpperCase() + type.slice(1);
+            editForm.action = `/admin/${type}/update/${data.id}`;
+            modalFields.innerHTML = "";
+            
+            const fields = {
+                stat: ['label', 'value', 'suffix', 'order'],
+                service: ['title', 'icon_name', 'category', 'description', 'order'],
+                portfolio: ['title', 'category', 'result_text', 'link', 'order', 'image'],
+                testimonial: ['client_name', 'client_role', 'content', 'order', 'image'],
+                social: ['platform', 'icon_name', 'link', 'order'],
+                partner: ['name', 'icon_name', 'link', 'order', 'logo']
+            };
+
+            fields[type].forEach(field => {
+                const div = document.createElement('div');
+                if (field === 'description' || field === 'content') div.className = "md:col-span-2";
+                
+                let label = field.replace('_', ' ').toUpperCase();
+                if (field === 'icon_name') {
+                    label += ' <a href="https://fontawesome.com/search?o=r&m=free" target="_blank" class="text-teal lowercase text-[10px]">(find icons)</a>';
+                }
+                let input;
+
+                if (field === 'description' || field === 'content') {
+                    input = `<textarea name="${field}" rows="4" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">${data[field] || ''}</textarea>`;
+                } else if (field === 'image' || field === 'logo') {
+                    input = `<input type="file" name="${field}" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">`;
+                } else if (field === 'category' && type === 'service') {
+                    input = `<select name="category" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">
+                        <option value="email" ${data.category === 'email' ? 'selected' : ''}>Email Marketing</option>
+                        <option value="uiux" ${data.category === 'uiux' ? 'selected' : ''}>UI/UX Design</option>
+                        <option value="webdev" ${data.category === 'webdev' ? 'selected' : ''}>Web Development</option>
+                    </select>`;
+                } else {
+                    input = `<input type="${field === 'order' || field === 'value' ? 'number' : 'text'}" name="${field}" value="${data[field] || ''}" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all font-medium text-navy">`;
+                }
+
+                div.innerHTML = `<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">${label}</label>${input}`;
+                modalFields.appendChild(div);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
         function previewImage(input, previewId) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

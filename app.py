@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink
+from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-this'
@@ -20,7 +20,7 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 with app.app_context():
     db.create_all()
@@ -85,6 +85,19 @@ with app.app_context():
         ]
         db.session.add_all(socials)
         
+    if not Partner.query.first():
+        partners = [
+            Partner(name="Mailchimp", icon_name="mailchimp", order=1),
+            Partner(name="Klaviyo", icon_name="envelope-open-text", order=2),
+            Partner(name="Shopify", icon_name="shopify", order=3),
+            Partner(name="Amazon", icon_name="amazon", order=4),
+            Partner(name="Google", icon_name="google", order=5),
+            Partner(name="Meta", icon_name="meta", order=6),
+            Partner(name="HubSpot", icon_name="hubspot", order=7),
+            Partner(name="Salesforce", icon_name="salesforce", order=8)
+        ]
+        db.session.add_all(partners)
+        
     db.session.commit()
 
 # --- Public Routes ---
@@ -98,6 +111,7 @@ def index():
     portfolio = PortfolioItem.query.order_by(PortfolioItem.order).all()
     testimonials = Testimonial.query.order_by(Testimonial.order).all()
     social_links = SocialLink.query.order_by(SocialLink.order).all()
+    partners = Partner.query.order_by(Partner.order).all()
     return render_template('index.html', 
                          settings=settings, 
                          about=about, 
@@ -105,7 +119,8 @@ def index():
                          services=services, 
                          portfolio=portfolio,
                          testimonials=testimonials,
-                         social_links=social_links)
+                         social_links=social_links,
+                         partners=partners)
 
 @app.context_processor
 def inject_global_data():
@@ -141,6 +156,7 @@ def admin_dashboard():
     portfolio = PortfolioItem.query.all()
     testimonials = Testimonial.query.all()
     social_links = SocialLink.query.all()
+    partners = Partner.query.all()
     return render_template('admin/dashboard.html', 
                          settings=settings, 
                          stats=stats, 
@@ -148,7 +164,8 @@ def admin_dashboard():
                          services=services, 
                          portfolio=portfolio,
                          testimonials=testimonials,
-                         social_links=social_links)
+                         social_links=social_links,
+                         partners=partners)
 
 # --- CRUD Routes ---
 
@@ -274,6 +291,114 @@ def add_social():
 def delete_social(id):
     s = SocialLink.query.get_or_404(id)
     db.session.delete(s)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/partner/add', methods=['POST'])
+@login_required
+def add_partner():
+    p = Partner(name=request.form.get('name'), icon_name=request.form.get('icon_name'), link=request.form.get('link'), order=request.form.get('order'))
+    if 'logo' in request.files:
+        file = request.files['logo']
+        if file and file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            p.logo_path = url_for('static', filename='uploads/' + filename)
+    db.session.add(p)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/partner/delete/<int:id>')
+@login_required
+def delete_partner(id):
+    p = Partner.query.get_or_404(id)
+    db.session.delete(p)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/stat/update/<int:id>', methods=['POST'])
+@login_required
+def update_stat(id):
+    stat = Stat.query.get_or_404(id)
+    stat.label = request.form.get('label')
+    stat.value = request.form.get('value')
+    stat.suffix = request.form.get('suffix')
+    stat.order = request.form.get('order')
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/service/update/<int:id>', methods=['POST'])
+@login_required
+def update_service(id):
+    service = Service.query.get_or_404(id)
+    service.title = request.form.get('title')
+    service.description = request.form.get('description')
+    service.icon_name = request.form.get('icon_name')
+    service.category = request.form.get('category')
+    service.order = request.form.get('order')
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/portfolio/update/<int:id>', methods=['POST'])
+@login_required
+def update_portfolio(id):
+    item = PortfolioItem.query.get_or_404(id)
+    item.title = request.form.get('title')
+    item.category = request.form.get('category')
+    item.result_text = request.form.get('result_text')
+    item.link = request.form.get('link')
+    item.order = request.form.get('order')
+    if 'image' in request.files:
+        file = request.files['image']
+        if file and file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            item.image_path = url_for('static', filename='uploads/' + filename)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/testimonial/update/<int:id>', methods=['POST'])
+@login_required
+def update_testimonial(id):
+    t = Testimonial.query.get_or_404(id)
+    t.client_name = request.form.get('client_name')
+    t.client_role = request.form.get('client_role')
+    t.content = request.form.get('content')
+    t.order = request.form.get('order')
+    if 'image' in request.files:
+        file = request.files['image']
+        if file and file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            t.image_path = url_for('static', filename='uploads/' + filename)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/social/update/<int:id>', methods=['POST'])
+@login_required
+def update_social(id):
+    s = SocialLink.query.get_or_404(id)
+    s.platform = request.form.get('platform')
+    s.icon_name = request.form.get('icon_name')
+    s.link = request.form.get('link')
+    s.order = request.form.get('order')
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/partner/update/<int:id>', methods=['POST'])
+@login_required
+def update_partner(id):
+    p = Partner.query.get_or_404(id)
+    p.name = request.form.get('name')
+    p.icon_name = request.form.get('icon_name')
+    p.link = request.form.get('link')
+    p.order = request.form.get('order')
+    if 'logo' in request.files:
+        file = request.files['logo']
+        if file and file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            p.logo_path = url_for('static', filename='uploads/' + filename)
     db.session.commit()
     return redirect(url_for('admin_dashboard'))
 

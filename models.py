@@ -4,6 +4,10 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+class BaseMixin:
+    def to_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -28,14 +32,14 @@ class SiteSettings(db.Model):
     contact_phone = db.Column(db.String(50), default="+880 1234 567 890")
     contact_email = db.Column(db.String(100), default="hello@theshakil.com")
 
-class SocialLink(db.Model):
+class SocialLink(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     platform = db.Column(db.String(50), nullable=False) # linkedin, facebook, twitter, etc.
     icon_name = db.Column(db.String(50), nullable=False) # lucide icon name
     link = db.Column(db.String(255), nullable=False)
     order = db.Column(db.Integer, default=0)
 
-class Stat(db.Model):
+class Stat(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     label = db.Column(db.String(100), nullable=False)
     value = db.Column(db.Integer, nullable=False)
@@ -48,7 +52,7 @@ class AboutInfo(db.Model):
     content = db.Column(db.Text, nullable=False)
     image_path = db.Column(db.String(255), default="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop")
 
-class Service(db.Model):
+class Service(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
@@ -56,7 +60,7 @@ class Service(db.Model):
     category = db.Column(db.String(50), nullable=False)
     order = db.Column(db.Integer, default=0)
 
-class PortfolioItem(db.Model):
+class PortfolioItem(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(50), nullable=False)
@@ -65,11 +69,19 @@ class PortfolioItem(db.Model):
     link = db.Column(db.String(255), default="#")
     order = db.Column(db.Integer, default=0)
 
-class Testimonial(db.Model):
+class Testimonial(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     client_name = db.Column(db.String(100), nullable=False)
     client_role = db.Column(db.String(100)) # e.g., CEO, Marketing Director
     content = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, default=5)
     image_path = db.Column(db.String(255))
+    order = db.Column(db.Integer, default=0)
+
+class Partner(db.Model, BaseMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    logo_path = db.Column(db.String(255))
+    icon_name = db.Column(db.String(50))
+    link = db.Column(db.String(255), default="#")
     order = db.Column(db.Integer, default=0)
