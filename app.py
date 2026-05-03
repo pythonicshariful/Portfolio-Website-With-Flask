@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner
+from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner, Lead
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-this'
@@ -140,6 +140,29 @@ def login():
         flash('Invalid username or password')
     return render_template('admin/login.html')
 
+@app.route('/submit_lead', methods=['POST'])
+def submit_lead():
+    full_name = request.form.get('full_name')
+    email = request.form.get('email')
+    whatsapp = request.form.get('whatsapp')
+    budget = request.form.get('budget')
+    details = request.form.get('details')
+    
+    if not full_name or not email:
+        return jsonify({"success": False, "message": "Name and Email are required"}), 400
+        
+    new_lead = Lead(
+        full_name=full_name,
+        email=email,
+        whatsapp=whatsapp,
+        budget=budget,
+        details=details
+    )
+    db.session.add(new_lead)
+    db.session.commit()
+    
+    return jsonify({"success": True, "message": "We have received your message!"})
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -157,6 +180,7 @@ def admin_dashboard():
     testimonials = Testimonial.query.all()
     social_links = SocialLink.query.all()
     partners = Partner.query.all()
+    leads = Lead.query.order_by(Lead.created_at.desc()).all()
     return render_template('admin/dashboard.html', 
                          settings=settings, 
                          stats=stats, 
@@ -165,7 +189,8 @@ def admin_dashboard():
                          portfolio=portfolio,
                          testimonials=testimonials,
                          social_links=social_links,
-                         partners=partners)
+                         partners=partners,
+                         leads=leads)
 
 # --- CRUD Routes ---
 
@@ -400,6 +425,15 @@ def update_partner(id):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             p.logo_path = url_for('static', filename='uploads/' + filename)
     db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/lead/delete/<int:id>')
+@login_required
+def delete_lead(id):
+    lead = Lead.query.get_or_404(id)
+    db.session.delete(lead)
+    db.session.commit()
+    flash('Lead deleted successfully')
     return redirect(url_for('admin_dashboard'))
 
 if __name__ == '__main__':

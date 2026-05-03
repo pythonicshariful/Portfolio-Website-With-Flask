@@ -260,3 +260,75 @@ body {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-100% - 100px)); }
 }
+
+@keyframes scroll-testimonials {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 24px)); }
+}
+
+.testimonial-track {
+    display: inline-flex;
+    animation: scroll-testimonials 40s linear infinite;
+}
+
+.testimonial-slider {
+    position: relative;
+}
+
+.testimonial-slider:before, .testimonial-slider:after {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    content: "";
+    z-index: 10;
+    pointer-events: none;
+}
+
+.testimonial-slider:before {
+    left: 0;
+    background: linear-gradient(to right, #FBFDFF 0%, transparent 100%);
+}
+
+.testimonial-slider:after {
+    right: 0;
+    background: linear-gradient(to left, #FBFDFF 0%, transparent 100%);
+}
+
+.testimonial-slider:hover .testimonial-track {
+    animation-play-state: paused;
+}
+
+/* Budget Buttons */
+.budget-btn {
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid var(--slate-100);
+    background: var(--slate-50);
+    color: var(--slate-500);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.budget-btn:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: white;
+}
+
+.budget-btn.active {
+    background: var(--teal);
+    color: white;
+    border-color: var(--teal);
+    box-shadow: 0 10px 20px -5px rgba(0, 201, 177, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}

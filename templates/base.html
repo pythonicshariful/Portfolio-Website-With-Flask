@@ -172,7 +172,78 @@
                     }
                 });
             }
+
+            // Global Project Modal Logic
+            const projectModal = document.getElementById('projectModal');
+            if (projectModal) {
+                document.addEventListener('click', function(e) {
+                    const trigger = e.target.closest('.portfolio-trigger');
+                    if (trigger) {
+                        const data = trigger.dataset;
+                        document.getElementById('modalProjectTitle').innerText = data.title;
+                        document.getElementById('modalProjectCategory').innerText = data.category;
+                        document.getElementById('modalProjectResult').innerText = data.result;
+                        document.getElementById('modalProjectImage').src = data.image;
+                        document.getElementById('modalProjectLink').href = data.link;
+                        
+                        projectModal.classList.remove('hidden');
+                        projectModal.classList.add('flex');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+
+                window.closeProjectModal = function() {
+                    projectModal.classList.add('hidden');
+                    projectModal.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                }
+
+                projectModal.addEventListener('click', (e) => {
+                    if (e.target === projectModal) closeProjectModal();
+                });
+            }
         });
     </script>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="fixed inset-0 bg-navy/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4 lg:p-10 animate-fade-in">
+        <div class="bg-white w-full max-w-6xl max-h-[90vh] rounded-[40px] overflow-hidden shadow-2xl relative flex flex-col lg:flex-row">
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 z-50 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all lg:text-navy lg:border-slate-100 lg:bg-slate-50">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <div class="w-full lg:w-3/5 h-[300px] lg:h-auto relative">
+                <img id="modalProjectImage" src="" alt="Project Image" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="w-full lg:w-2/5 p-8 lg:p-16 flex flex-col justify-center overflow-y-auto">
+                <div class="flex items-center gap-4 mb-6">
+                    <span id="modalProjectCategory" class="px-4 py-1.5 bg-teal/10 text-teal text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Category</span>
+                    <span id="modalProjectResult" class="text-coral text-[10px] font-black uppercase tracking-[0.2em]">Result</span>
+                </div>
+                
+                <h2 id="modalProjectTitle" class="text-[32px] lg:text-[48px] font-bold text-navy leading-tight mb-8">Project Title</h2>
+                
+                <div class="space-y-6 mb-10 text-slate-500 font-medium leading-relaxed">
+                    <p>We implemented a full-scale digital strategy focusing on conversion optimization and automated nurture flows. This resulted in a significant uplift in both engagement and direct revenue.</p>
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-slate-50">
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Services</p>
+                            <p class="text-navy font-bold text-sm">Strategy, Automation</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Platform</p>
+                            <p class="text-navy font-bold text-sm">Klaviyo / Shopify</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a id="modalProjectLink" href="#" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-navy text-white font-bold rounded-full hover:bg-teal transition-all shadow-xl shadow-navy/20">
+                    Visit Project Website
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

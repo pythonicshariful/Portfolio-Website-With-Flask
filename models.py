@@ -85,3 +85,13 @@ class Partner(db.Model, BaseMixin):
     icon_name = db.Column(db.String(50))
     link = db.Column(db.String(255), default="#")
     order = db.Column(db.Integer, default=0)
+
+class Lead(db.Model, BaseMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    whatsapp = db.Column(db.String(50))
+    budget = db.Column(db.String(50))
+    details = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(20), default="New") # New, Contacted, Completed
