@@ -101,14 +101,24 @@ body {
 
 /* Hero Badges */
 .badge-mailchimp, .badge-klaviyo, .badge-fiverr {
-    padding: 0.625rem 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 700;
-    color: var(--slate-600);
+    color: var(--navy);
     background: white;
     border: 1px solid var(--slate-100);
-    box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px -5px rgba(30, 58, 95, 0.05);
+    transition: all 0.3s ease;
+}
+
+.badge-mailchimp:hover, .badge-klaviyo:hover, .badge-fiverr:hover {
+    transform: translateY(-2px);
+    border-color: var(--teal);
+    box-shadow: 0 15px 40px -8px rgba(30, 58, 95, 0.1);
 }
 
 /* Service Cards */

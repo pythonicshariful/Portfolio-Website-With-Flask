@@ -1,10 +1,17 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+import random
+import smtplib
+import ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner, Lead
+from datetime import datetime
+import config
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-this'
@@ -128,6 +135,27 @@ def inject_global_data():
     social_links = SocialLink.query.order_by(SocialLink.order).all()
     return dict(settings=settings, social_links=social_links)
 
+# --- Email Helper ---
+def send_email(subject, body, to_email):
+    sender_email = config.EMAIL_USER
+    sender_password = config.EMAIL_PASS
+    
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = to_email
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "html"))
+    
+    context = ssl.create_default_context()
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, to_email, message.as_string())
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
+
 # --- Admin Routes ---
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -135,10 +163,54 @@ def login():
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form.get('username')).first()
         if user and check_password_hash(user.password, request.form.get('password')):
-            login_user(user)
-            return redirect(url_for('admin_dashboard'))
-        flash('Invalid username or password')
+            # Generate 6-digit OTP
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            session['otp'] = otp
+            session['pending_user_id'] = user.id
+            
+            settings = SiteSettings.query.first()
+            target_email = settings.contact_email if settings and settings.contact_email else "skahmed0912@gmail.com"
+            
+            email_body = f"""
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                <h2 style="color: #008080; text-align: center;">Login Verification Code</h2>
+                <p>Hello,</p>
+                <p>You are receiving this email because a login attempt was made to your portfolio admin dashboard.</p>
+                <div style="background-color: #f9f9f9; padding: 20px; text-align: center; border-radius: 5px; margin: 20px 0;">
+                    <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #333;">{otp}</span>
+                </div>
+                <p>This code will expire shortly. If you did not make this request, please ignore this email.</p>
+                <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+                <p style="font-size: 12px; color: #888; text-align: center;">&copy; {datetime.now().year} Shakil Ahmed Portfolio</p>
+            </div>
+            """
+            
+            if send_email("Your Admin Login OTP", email_body, target_email):
+                flash('An OTP has been sent to your contact email.', 'info')
+                return redirect(url_for('verify_otp'))
+            else:
+                flash('Error sending OTP. Please check your email configuration.', 'danger')
+        else:
+            flash('Invalid username or password', 'danger')
     return render_template('admin/login.html')
+
+@app.route('/verify-otp', methods=['GET', 'POST'])
+def verify_otp():
+    if 'pending_user_id' not in session or 'otp' not in session:
+        return redirect(url_for('login'))
+        
+    if request.method == 'POST':
+        input_otp = request.form.get('otp')
+        if input_otp == session.get('otp'):
+            user = db.session.get(User, session.get('pending_user_id'))
+            if user:
+                login_user(user)
+                session.pop('otp', None)
+                session.pop('pending_user_id', None)
+                return redirect(url_for('admin_dashboard'))
+        flash('Invalid OTP. Please try again.', 'danger')
+        
+    return render_template('admin/verify_otp.html')
 
 @app.route('/submit_lead', methods=['POST'])
 def submit_lead():
@@ -160,6 +232,41 @@ def submit_lead():
     )
     db.session.add(new_lead)
     db.session.commit()
+    
+    # Send Notification Email
+    settings = SiteSettings.query.first()
+    target_email = settings.contact_email if settings and settings.contact_email else "skahmed0912@gmail.com"
+    
+    lead_body = f"""
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: #008080;">New Lead Received!</h2>
+        <p>A new potential client has contacted you through your portfolio website.</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Full Name:</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{full_name}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{email}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Whatsapp:</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{whatsapp}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{budget}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Details:</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{details}</td>
+            </tr>
+        </table>
+        <p style="margin-top: 20px;">Check your admin dashboard for more details.</p>
+    </div>
+    """
+    send_email(f"New Lead: {full_name}", lead_body, target_email)
     
     return jsonify({"success": True, "message": "We have received your message!"})
 

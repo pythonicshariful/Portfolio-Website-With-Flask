@@ -24,7 +24,11 @@ A premium, fully dynamic portfolio website built with Flask, SQLAlchemy, and Tai
    ```bash
    pip install -r requirements.txt
    ```
-3. Run the application:
+3. Setup Configuration:
+   - Rename `config.example.py` to `config.py`.
+   - Add your Gmail address and App Password to `config.py`.
+
+4. Run the application:
    ```bash
    python app.py
    ```

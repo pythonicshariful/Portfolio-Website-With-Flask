@@ -8,3 +8,4 @@ static/uploads/*
 .vscode/
 .idea/
 *.db
+config.py
