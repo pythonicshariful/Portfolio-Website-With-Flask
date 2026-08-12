@@ -44,6 +44,7 @@ with app.app_context():
     if settings:
         if not settings.meta_title: settings.meta_title = "Shakil Ahmed | Email Marketing Expert"
         if not settings.meta_description: settings.meta_description = "Top-rated Email Marketing expert helping Ecommerce & SaaS brands scale revenue through automation."
+        if not hasattr(settings, 'hero_trust_text') or not settings.hero_trust_text: settings.hero_trust_text = "Platforms & tools I work in"
     
     if not AboutInfo.query.first():
         about = AboutInfo(content="With years of expertise in e-commerce and SaaS, I help businesses turn their email lists into revenue-generating machines. My process combines data analysis, creative design, and technical automation.")
@@ -71,9 +72,12 @@ with app.app_context():
 
     if not PortfolioItem.query.first():
         items = [
-            PortfolioItem(title="Fashion Brand Retention Flow", category="Ecommerce", result_text="+47% REVENUE", image_path="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop", order=1),
-            PortfolioItem(title="SaaS Onboarding Sequence", category="SaaS", result_text="24% CONVERSION", image_path="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop", order=2),
-            PortfolioItem(title="Real Estate Lead Gen", category="Real Estate", result_text="$12k PROFIT", image_path="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop", order=3)
+            PortfolioItem(title="News Newsletter Performance Overhaul", category="Publishing / Media", result_text="+38% CTR", summary="Redesigned content structure and optimization to drive higher click-through rates.", image_path="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop", order=1),
+            PortfolioItem(title="Deliverability Rescue for an Irish Retailer", category="E-Commerce", result_text="Inbox Recovery", summary="Identified spam trap issues and rebuilt sender reputation to restore inbox placement.", image_path="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop", order=2),
+            PortfolioItem(title="Sender Reputation Rebuild — Action Sports Brand", category="DTC / Merch", result_text="70K List", summary="Cleaned up a large list and implemented sunset flows to maintain high engagement.", image_path="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop", order=3),
+            PortfolioItem(title="Wholesale Plumbing Supplier Campaign Build", category="B2B Wholesale", result_text="Hero Product Campaign", summary="Built high-converting B2B campaigns to drive bulk orders of a hero product.", image_path="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", order=4),
+            PortfolioItem(title="Newsletter Programme for a Luxury Studio", category="Beauty / Services", result_text="Multi-Location", summary="Created a unified newsletter template system scalable across multiple locations.", image_path="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop", order=5),
+            PortfolioItem(title="Corporate Gifting Email Template Build", category="B2B Corporate", result_text="Template System", summary="Developed a modular, responsive template system to accelerate campaign production.", image_path="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop", order=6)
         ]
         db.session.add_all(items)
 
@@ -307,6 +311,7 @@ def update_settings():
     settings = SiteSettings.query.first()
     settings.hero_title = request.form.get('hero_title')
     settings.hero_subtext = request.form.get('hero_subtext')
+    settings.hero_trust_text = request.form.get('hero_trust_text')
     settings.cv_link = request.form.get('cv_link')
     settings.fiverr_link = request.form.get('fiverr_link')
     settings.contact_phone = request.form.get('contact_phone')
@@ -369,7 +374,7 @@ def delete_service(id):
 @app.route('/admin/portfolio/add', methods=['POST'])
 @login_required
 def add_portfolio():
-    item = PortfolioItem(title=request.form.get('title'), category=request.form.get('category'), result_text=request.form.get('result_text'), link=request.form.get('link'), order=request.form.get('order'))
+    item = PortfolioItem(title=request.form.get('title'), category=request.form.get('category'), result_text=request.form.get('result_text'), summary=request.form.get('summary'), link=request.form.get('link'), order=request.form.get('order'))
     if 'image' in request.files:
         file = request.files['image']
         if file and file.filename != '':
@@ -478,6 +483,7 @@ def update_portfolio(id):
     item.title = request.form.get('title')
     item.category = request.form.get('category')
     item.result_text = request.form.get('result_text')
+    item.summary = request.form.get('summary')
     item.link = request.form.get('link')
     item.order = request.form.get('order')
     if 'image' in request.files:

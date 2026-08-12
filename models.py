@@ -23,6 +23,7 @@ class SiteSettings(db.Model):
     # Hero Content
     hero_title = db.Column(db.String(255), default="Transform Your Business with Data-Driven Email Marketing")
     hero_subtext = db.Column(db.String(500), default="Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development")
+    hero_trust_text = db.Column(db.String(255), default="Platforms & tools I work in")
     
     # Links
     cv_link = db.Column(db.String(255), default="#")
@@ -63,6 +64,7 @@ class Service(db.Model, BaseMixin):
 class PortfolioItem(db.Model, BaseMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
+    summary = db.Column(db.String(500))
     category = db.Column(db.String(50), nullable=False)
     result_text = db.Column(db.String(100))
     image_path = db.Column(db.String(255))

@@ -1,6 +1,7 @@
 :root {
     --navy: #1E3A5F;
-    --teal: #00C9B1;
+    --teal: #00E5B0;
+    --purple: #5B3FF8;
     --coral: #FF7E67;
     --slate-50: #F8FAFC;
     --slate-100: #F1F5F9;
@@ -322,16 +323,16 @@ body {
 }
 
 .budget-btn:hover {
-    border-color: var(--teal);
-    color: var(--teal);
+    border-color: var(--purple);
+    color: var(--purple);
     background: white;
 }
 
 .budget-btn.active {
-    background: var(--teal);
+    background: var(--purple);
     color: white;
-    border-color: var(--teal);
-    box-shadow: 0 10px 20px -5px rgba(0, 201, 177, 0.3);
+    border-color: var(--purple);
+    box-shadow: 0 10px 20px -5px rgba(91, 63, 248, 0.3);
 }
 
 @keyframes fadeIn {

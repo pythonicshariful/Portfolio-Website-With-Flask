@@ -8,7 +8,8 @@ module.exports = {
     extend: {
       colors: {
         navy: "#1E3A5F",
-        teal: "#00C9B1",
+        teal: "#00E5B0",
+        purple: "#5B3FF8",
         coral: "#FF7E67",
         slate: {
           50: '#F8FAFC',

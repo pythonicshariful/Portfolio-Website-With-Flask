@@ -18,7 +18,9 @@
     {% endif %}
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS Animation Library -->
@@ -28,8 +30,12 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { navy: "#1E3A5F", teal: "#00C9B1", coral: "#FF7E67" },
-                    boxShadow: { premium: "0 25px 60px -15px rgba(30, 58, 95, 0.08)" }
+                    colors: { navy: "#1E3A5F", teal: "#00E5B0", purple: "#5B3FF8", coral: "#FF7E67" },
+                    boxShadow: { premium: "0 25px 60px -15px rgba(30, 58, 95, 0.08)" },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"DM Mono"', 'monospace'],
+                    }
                 }
             }
         }
@@ -47,13 +53,13 @@
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-6">
         <div class="container mx-auto px-6 max-w-[1280px]">
             <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-[32px] px-8 py-4 flex items-center justify-between shadow-premium">
-                <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 bg-[#1E3A5F] rounded-full flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
+                <a href="/" class="flex items-center gap-3 group" aria-label="Zeplo Studio — Email Marketing & Web Design">
+                    <div class="w-10 h-10 bg-purple rounded-full flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[16px] font-bold tracking-tight text-[#1E3A5F] leading-none">Shakil Ahmed</span>
-                        <span class="text-[12px] text-slate-500 font-medium">Email Marketing Expert</span>
+                        <span class="text-[16px] font-bold tracking-tight text-[#1E3A5F] leading-none">Zeplo Studio</span>
+                        <span class="text-[12px] text-slate-500 font-medium font-mono">led by Shakil Ahmed</span>
                     </div>
                 </a>
                 
@@ -64,7 +70,7 @@
                         <a href="#about" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">About</a>
                         <a href="#contact" class="text-[15px] font-semibold text-slate-600 hover:text-teal transition-colors">Contact</a>
                     </div>
-                    <a href="#contact" class="px-6 py-2.5 bg-gradient-to-r from-navy to-teal text-white rounded-full text-[14px] font-bold hover:shadow-lg hover:shadow-teal-500/10 transition-all">Let's Talk</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-gradient-to-r from-purple to-teal text-white rounded-full text-[14px] font-bold hover:shadow-lg hover:shadow-teal-500/10 transition-all">Let's Talk</a>
                 </div>
                 
                 <button class="md:hidden text-navy">
@@ -79,20 +85,21 @@
     </main>
 
     <!-- Figma-matched Footer Section -->
-    <footer class="bg-gradient-to-r from-[#1E3A5F] to-[#00C9B1] pt-24 pb-12 relative overflow-hidden">
+    <footer class="bg-gradient-to-r from-navy to-purple pt-24 pb-12 relative overflow-hidden">
         <div class="container mx-auto px-6 max-w-[1280px] relative z-10">
             <div class="grid lg:grid-cols-4 gap-16 mb-20">
                 <!-- Column 1: Brand -->
                 <div>
-                    <a href="/" class="flex items-center gap-3 mb-8 group">
+                    <a href="/" class="flex items-center gap-3 mb-4 group" aria-label="Zeplo Studio — Email Marketing & Web Design">
                         <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[16px] font-bold tracking-tight text-white leading-none">Shakil Ahmed</span>
-                            <span class="text-[12px] text-white/70 font-medium">Email Marketing Expert</span>
+                            <span class="text-[16px] font-bold tracking-tight text-white leading-none">Zeplo Studio</span>
+                            <span class="text-[12px] text-white/70 font-medium font-mono">led by Shakil Ahmed</span>
                         </div>
                     </a>
+                    <p class="text-white/60 text-sm font-mono italic mb-8">every pixel has a purpose</p>
                     <p class="text-white/80 text-[15px] max-w-sm mb-10 leading-relaxed font-medium">
                         Transforming businesses through data-driven email marketing and full-stack development.
                     </p>
@@ -144,7 +151,7 @@
             </div>
             
             <div class="pt-12 border-t border-white/10 text-center">
-                <p class="text-white/60 text-sm font-medium">© 2026 Shakil Ahmed. All rights reserved.</p>
+                <p class="text-white/60 text-sm font-medium font-mono">© 2026 Zeplo Studio. All rights reserved.</p>
             </div>
         </div>
     </footer>
