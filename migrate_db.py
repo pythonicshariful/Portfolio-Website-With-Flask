@@ -1,27 +1,48 @@
+import sqlite3
+import os
+
+# 1. Update schema via raw sqlite3 BEFORE importing app
+# This prevents app.py from crashing on startup when it queries the DB
+db_path = 'instance/portfolio.db'
+if not os.path.exists(db_path):
+    db_path = 'portfolio.db'
+
+print(f"Applying schema updates to {db_path}...")
+try:
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute('ALTER TABLE site_settings ADD COLUMN hero_trust_text VARCHAR(255) DEFAULT "Platforms & tools I work in"')
+        print("- Added hero_trust_text column.")
+    except sqlite3.OperationalError as e:
+        print("- hero_trust_text:", e)
+
+    try:
+        cursor.execute('ALTER TABLE portfolio_item ADD COLUMN summary VARCHAR(500)')
+        print("- Added summary column.")
+    except sqlite3.OperationalError as e:
+        print("- summary:", e)
+
+    conn.commit()
+    conn.close()
+except Exception as e:
+    print(f"Error updating schema: {e}")
+
+print("Schema updated. Now loading Flask app to seed data...")
+
+# 2. Now it's safe to import app and models
 from app import app, db
 from models import SiteSettings, PortfolioItem
 
 with app.app_context():
-    # 1. Add hero_trust_text column and summary column to SQLite DB (via raw SQL to avoid dropping tables)
-    try:
-        db.session.execute(db.text('ALTER TABLE site_settings ADD COLUMN hero_trust_text VARCHAR(255) DEFAULT "Platforms & tools I work in"'))
-    except Exception as e:
-        print("site_settings.hero_trust_text already exists or error:", e)
-
-    try:
-        db.session.execute(db.text('ALTER TABLE portfolio_item ADD COLUMN summary VARCHAR(500)'))
-    except Exception as e:
-        print("portfolio_item.summary already exists or error:", e)
-        
-    db.session.commit()
-    
-    # 2. Update existing settings
+    # Update existing settings
     settings = SiteSettings.query.first()
     if settings and not settings.hero_trust_text:
         settings.hero_trust_text = "Platforms & tools I work in"
         db.session.commit()
         
-    # 3. Replace Portfolio Items
+    # Replace Portfolio Items
     PortfolioItem.query.delete()
     
     items = [
@@ -35,4 +56,4 @@ with app.app_context():
     db.session.add_all(items)
     db.session.commit()
     
-    print("Migration completed.")
+    print("Migration and data seeding completed successfully!")
