@@ -31,6 +31,32 @@ def load_user(user_id):
 
 with app.app_context():
     db.create_all()
+
+    # --- Auto-migrate: add any missing columns to existing tables ---
+    def _col_exists(conn, table, column):
+        result = conn.execute(f"PRAGMA table_info({table})")
+        return any(row[1] == column for row in result.fetchall())
+
+    with db.engine.connect() as conn:
+        migrations = [
+            # SiteSettings new columns
+            ("site_settings", "hero_eyebrow",   "VARCHAR(255) DEFAULT 'Marketing • Mailchimp Pro Partner • Klaviyo Partner'"),
+            ("site_settings", "hero_title",      "VARCHAR(255) DEFAULT 'Transform Your Business with Data-Driven Email Marketing'"),
+            ("site_settings", "hero_subtext",    "VARCHAR(500) DEFAULT 'Mailchimp Pro Partner • Klaviyo Partner'"),
+            ("site_settings", "hero_trust_text", "VARCHAR(255) DEFAULT 'Platforms & tools I work in'"),
+            ("site_settings", "cv_link",         "VARCHAR(255) DEFAULT '#'"),
+            ("site_settings", "fiverr_link",     "VARCHAR(255) DEFAULT '#'"),
+            ("site_settings", "contact_phone",   "VARCHAR(50)  DEFAULT '+880 1234 567 890'"),
+            ("site_settings", "contact_email",   "VARCHAR(100) DEFAULT 'hello@theshakil.com'"),
+            ("site_settings", "google_analytics_id", "VARCHAR(100) DEFAULT ''"),
+        ]
+        for table, col, definition in migrations:
+            if not _col_exists(conn, table, col):
+                conn.execute(db.text(f"ALTER TABLE {table} ADD COLUMN {col} {definition}"))
+                print(f"[migrate] Added column {table}.{col}")
+        conn.commit()
+    # --- End auto-migrate ---
+
     if not User.query.filter_by(username='admin').first():
         admin = User(username='admin', password=generate_password_hash('admin123'))
         db.session.add(admin)
