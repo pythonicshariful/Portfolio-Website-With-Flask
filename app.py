@@ -34,7 +34,7 @@ with app.app_context():
 
     # --- Auto-migrate: add any missing columns to existing tables ---
     def _col_exists(conn, table, column):
-        result = conn.execute(f"PRAGMA table_info({table})")
+        result = conn.execute(db.text(f"PRAGMA table_info({table})"))
         return any(row[1] == column for row in result.fetchall())
 
     with db.engine.connect() as conn:
