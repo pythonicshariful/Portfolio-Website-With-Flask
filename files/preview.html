@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeplo Studio — animated logo</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--pur:#5B3FF8;--teal:#00E5B0;--ink:#0A0A12;--paper:#F7F7FB;--line:#E7E7F0;--mut:#5C5B70;--faint:#9C9BB0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:#14131F;font-family:'Space Grotesk',sans-serif;
+     padding:clamp(28px,5vw,64px);line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:clamp(26px,3.6vw,38px);letter-spacing:-.025em;margin:0 0 10px}
+.lede{color:var(--mut);max-width:62ch;margin:0 0 44px;font-size:16px}
+h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin:52px 0 6px}
+.sub{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+     color:var(--faint);margin:0 0 18px}
+.stage{border-radius:16px;padding:34px;display:flex;align-items:center;justify-content:center;
+       border:1px solid var(--line);overflow:hidden}
+.stage.dark{background:var(--ink);border-color:#26243a}
+.stage.light{background:#fff}
+.row{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:760px){.row{grid-template-columns:1fr 1fr}}
+.stage img,.stage object{max-width:100%;height:auto;display:block}
+.mark-stage img,.mark-stage object{width:190px}
+.file{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--faint);margin:10px 0 0;word-break:break-all}
+table{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:14.5px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
+th{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:500}
+td:first-child{color:#14131F;font-weight:600;font-family:'DM Mono',monospace;font-size:12.5px;font-weight:400}
+code{font-family:'DM Mono',monospace;font-size:12.5px;background:#EEEDF6;padding:2px 6px;border-radius:4px}
+pre{background:var(--ink);color:#EDEDF2;padding:18px 20px;border-radius:10px;overflow:auto;
+    font-family:'DM Mono',monospace;font-size:12.5px;line-height:1.7}
+p{color:var(--mut)}
+hr{border:0;border-top:1px solid var(--line);margin:52px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Zeplo Studio — animated logo</h1>
+<p class="lede">The Pixel Grid Z writes itself one cell at a time, in the order you'd actually draw a Z:
+top rail, diagonal, bottom rail. Each new cell lands in Grid Teal and settles to Pixel Purple —
+a write head moving through the grid. The mark dissolves in the same order and loops every 3.6 seconds.</p>
+
+<h2>Lockup — primary</h2>
+<p class="sub">Site header · presentation title slides · video intros</p>
+<div class="row">
+  <div>
+    <div class="stage dark"><img src="zeplo-lockup-dark.gif" alt="Zeplo Studio animated logo on dark"></div>
+    <p class="file">zeplo-lockup-dark.gif</p>
+  </div>
+  <div>
+    <div class="stage light"><img src="zeplo-lockup-light.gif" alt="Zeplo Studio animated logo on light"></div>
+    <p class="file">zeplo-lockup-light.gif</p>
+  </div>
+</div>
+
+<h2>Mark only</h2>
+<p class="sub">Loading states · avatars · favicon source · social profile</p>
+<div class="row">
+  <div>
+    <div class="stage dark mark-stage"><img src="zeplo-mark-dark.gif" alt="Zeplo Studio pixel Z mark, animated, on dark"></div>
+    <p class="file">zeplo-mark-dark.gif</p>
+  </div>
+  <div>
+    <div class="stage light mark-stage"><img src="zeplo-mark-light.gif" alt="Zeplo Studio pixel Z mark, animated, on light"></div>
+    <p class="file">zeplo-mark-light.gif</p>
+  </div>
+</div>
+
+<h2>Animated SVG — use this on the website</h2>
+<p class="sub">Transparent · ~5 KB · resolution independent · respects reduced motion</p>
+<div class="row">
+  <div>
+    <div class="stage dark mark-stage"><object type="image/svg+xml" data="zeplo-mark-animated.svg" width="190"></object></div>
+    <p class="file">zeplo-mark-animated.svg</p>
+  </div>
+  <div>
+    <div class="stage light mark-stage"><object type="image/svg+xml" data="zeplo-mark-animated.svg" width="190"></object></div>
+    <p class="file">zeplo-mark-animated.svg</p>
+  </div>
+</div>
+<div class="stage light" style="margin-top:20px">
+  <object type="image/svg+xml" data="zeplo-lockup-animated.svg" width="760"></object>
+</div>
+<p class="file">zeplo-lockup-animated.svg</p>
+
+<hr>
+
+<h2>Which file where</h2>
+<table>
+  <thead><tr><th>File</th><th>Use it for</th></tr></thead>
+  <tbody>
+    <tr><td>zeplo-mark-animated.svg</td><td>Site header, loading spinner, anywhere on zeplostudio.com. Smallest and sharpest.</td></tr>
+    <tr><td>zeplo-lockup-animated.svg</td><td>Hero or splash on the site. Needs Space Grotesk + DM Mono loaded on the page.</td></tr>
+    <tr><td>zeplo-lockup-dark.gif</td><td>Fiverr profile, LinkedIn, email signature, Slack, anywhere SVG isn't supported.</td></tr>
+    <tr><td>zeplo-mark-dark.gif</td><td>Square avatar slots — social profiles, Slack, WhatsApp Business.</td></tr>
+    <tr><td>zeplo-mark-static.svg</td><td>Favicon, print, app icons, anywhere motion is wrong.</td></tr>
+  </tbody>
+</table>
+
+<h2>Notes for the developer</h2>
+<pre>&lt;!-- Header: inline the SVG so it inherits page fonts and CSS --&gt;
+&lt;img src="/static/zeplo-mark-animated.svg" alt="Zeplo Studio" width="44" height="44"&gt;
+
+&lt;!-- Favicon set, generated from zeplo-mark-static.svg --&gt;
+&lt;link rel="icon" href="/static/favicon.svg" type="image/svg+xml"&gt;
+&lt;link rel="icon" href="/static/favicon-32.png" sizes="32x32"&gt;
+&lt;link rel="apple-touch-icon" href="/static/apple-touch-icon.png"&gt;</pre>
+
+<p style="margin-top:22px"><strong>Accessibility:</strong> the animated SVG includes a
+<code>prefers-reduced-motion</code> rule — motion is disabled and the finished mark shown
+instead. The GIFs cannot do this, so don't use a GIF as the permanent site header.</p>
+
+<p><strong>Minimum size:</strong> the mark stops reading as a Z below about 24&nbsp;px.
+Use the static SVG under that.</p>
+
+<p><strong>Clear space:</strong> leave at least one grid cell of empty space on every side —
+that's roughly 20% of the mark's height.</p>
+
+</div>
+</body>
+</html>

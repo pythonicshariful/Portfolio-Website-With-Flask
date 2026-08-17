@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy | Zeplo Studio{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="How Zeplo Studio collects, uses, and protects personal information submitted through this website.">
+<style>
+:root{
+  --pur:#5B3FF8; --teal:#00E5B0;
+  --bg:#F7F7FB; --panel:#FFFFFF; --line:#E7E7F0; --line-2:#D3D3E2;
+  --ink:#14131F; --mut:#4E4D62; --faint:#8B8A9E;
+  --display:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  --mono:'DM Mono','SF Mono',ui-monospace,monospace;
+}
+
+.pp{max-width:760px;margin:0 auto;padding:clamp(120px,15vw,180px) clamp(20px,5vw,32px) 96px}
+
+.pp .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal);margin:0 0 16px;
+  display:inline-flex;align-items:center;gap:10px}
+.pp .eyebrow::before{content:"";width:6px;height:6px;background:var(--teal);
+  box-shadow:0 0 0 4px rgba(0,229,176,.18)}
+
+.pp h1{font-size:clamp(32px,5vw,46px);font-weight:700;letter-spacing:-.03em;
+  line-height:1.08;margin:0 0 14px; color: var(--navy);}
+.pp .updated{font-family:var(--mono);font-size:13px;letter-spacing:.06em;
+  color:var(--faint);margin:0 0 12px}
+.pp .lede{font-size:17px;color:var(--mut);margin:0 0 40px;max-width:60ch}
+
+.pp hr{border:0;border-top:1px solid var(--line);margin:44px 0}
+
+.pp h2{font-size:23px;font-weight:600;letter-spacing:-.02em;margin:48px 0 14px;
+  padding-top:4px; color: var(--navy);}
+.pp h2:first-of-type{margin-top:0}
+.pp h3{font-size:16px;font-weight:600;margin:26px 0 8px;color:var(--ink)}
+.pp p{margin:0 0 16px;color:var(--mut);font-size:15.5px}
+.pp ul{margin:0 0 18px;padding-left:22px;color:var(--mut);font-size:15.5px; list-style-type: disc;}
+.pp li{margin-bottom:9px}
+.pp strong{color:var(--ink);font-weight:600}
+.pp a{color:var(--pur);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px}
+.pp a:hover{text-decoration-thickness:2px}
+
+.pp table{width:100%;border-collapse:collapse;margin:8px 0 22px;font-size:14.5px}
+.pp th,.pp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);
+  vertical-align:top;color:var(--mut)}
+.pp th{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);font-weight:500;
+  border-bottom:1px solid var(--line-2)}
+
+.pp .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pur);
+  border-radius:10px;padding:22px 24px;margin:26px 0}
+.pp .note h2,.pp .note h3{margin-top:0}
+.pp .note p:last-child,.pp .note ul:last-child{margin-bottom:0}
+
+.pp .cta{display:inline-flex;align-items:center;gap:10px;background:var(--pur);
+  color:#fff;font-weight:600;font-size:15px;text-decoration:none;
+  padding:14px 24px;border-radius:10px;transition:.25s;margin-top:6px}
+.pp .cta:hover{background:#4B31E0;transform:translateY(-2px);
+  box-shadow:0 14px 30px -14px rgba(91,63,248,.7);text-decoration:none; color: white;}
+
+.pp .back{display:inline-block;margin-top:48px;font-family:var(--mono);font-size:13px;
+  letter-spacing:.08em;color:var(--faint);text-decoration:none}
+.pp .back:hover{color:var(--pur)}
+
+@media(max-width:560px){
+  .pp table,.pp thead,.pp tbody,.pp tr,.pp th,.pp td{display:block}
+  .pp thead{display:none}
+  .pp tr{border-bottom:1px solid var(--line);padding:12px 0}
+  .pp td{border:0;padding:3px 0}
+  .pp td:first-child{color:var(--ink);font-weight:600}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="pp bg-[#FBFDFF]">
+
+  <p class="eyebrow">Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: <time datetime="2026-08-13">13 August 2026</time></p>
+
+  <p class="lede">
+    Zeplo Studio is a one-person email marketing studio operating from Bangladesh and
+    working with clients internationally. This policy explains what personal information
+    is collected through zeplostudio.com, why it's collected, and what rights you have
+    over it.
+  </p>
+
+  <p>
+    Zeplo Studio is the data controller for information collected through this website.
+    Any question about this policy can be raised through the
+    <a href="{{ url_for('index') }}#contact">contact form</a>.
+  </p>
+
+  <hr>
+
+  <h2>What is collected</h2>
+
+  <h3>When you fill in the contact form</h3>
+  <p>
+    Your name, email address, and the details of your project. Optionally your WhatsApp
+    number and budget range, if you choose to provide them.
+  </p>
+
+  <h3>When you book a call</h3>
+  <p>
+    Bookings are handled by TidyCal. When you book, TidyCal collects your name, email
+    address, and your answers to the intake questions — your website, email platform,
+    list size, and what you're trying to solve. TidyCal also records your timezone so
+    the call can be scheduled correctly.
+  </p>
+
+  <h3>When you browse the site</h3>
+  <p>
+    Standard analytics data via Google Analytics 4: pages viewed, approximate location
+    (city level, derived from IP address), device and browser type, how you arrived at
+    the site, and how long you stayed. This is aggregated and is not used to identify
+    individual visitors.
+  </p>
+
+  <h3>What is not collected</h3>
+  <p>
+    Nothing is sold on this website, so payment card details are never collected here.
+    Special category data — health information, political opinions, religious beliefs,
+    biometric data, or anything similar — is not collected, and should not be sent
+    through the contact form.
+  </p>
+
+  <hr>
+
+  <h2>Why it's collected, and the legal basis</h2>
+
+  <table>
+    <thead>
+      <tr><th>What</th><th>Why</th><th>Legal basis (UK/EU GDPR)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contact form submissions</td>
+        <td>To reply to your enquiry and quote for work</td>
+        <td>Legitimate interest / steps prior to a contract</td>
+      </tr>
+      <tr>
+        <td>Booking details</td>
+        <td>To schedule and prepare for our call</td>
+        <td>Steps prior to a contract</td>
+      </tr>
+      <tr>
+        <td>Email correspondence</td>
+        <td>To communicate with you about a project</td>
+        <td>Legitimate interest / contract</td>
+      </tr>
+      <tr>
+        <td>Analytics</td>
+        <td>To understand which pages are useful and improve the site</td>
+        <td>Consent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <strong>Your contact details are not used for marketing.</strong> Submitting the form
+    will not add you to a mailing list. You will receive nothing other than a reply to
+    your enquiry and messages relating to work we discuss or carry out together.
+  </p>
+
+  <hr>
+
+  <h2>Who else handles your information</h2>
+
+  <p>
+    A small number of third-party services are used to run this site and the work behind
+    it. Each is a separate company with its own privacy policy, which is worth reading if
+    you have concerns.
+  </p>
+
+  <ul>
+    <li><strong>TidyCal</strong> — call booking and calendar management</li>
+    <li><strong>Google Analytics 4</strong> (Google LLC) — website analytics</li>
+    <li><strong>Google Workspace</strong> (Google LLC) — email and calendar</li>
+    <li><strong>Mailchimp</strong> (Intuit Inc.) and <strong>Klaviyo</strong> — used in client work, not for this website's visitors</li>
+  </ul>
+
+  <p>
+    This website runs on a self-managed hosting setup. Server logs, which may include IP
+    addresses and request timestamps, are generated automatically as part of normal
+    operation and are retained only as long as needed for security and troubleshooting.
+  </p>
+
+  <p>
+    Your personal information is never sold, rented, or traded. It is not shared with
+    advertisers or data brokers.
+  </p>
+
+  <hr>
+
+  <h2>If you're a client</h2>
+
+  <div class="note">
+    <p>
+      During client work, access is required to your email platform — including subscriber
+      names, email addresses, engagement history, and sometimes purchase data. In that
+      relationship <strong>you are the data controller</strong> and Zeplo Studio acts as a
+      <strong>data processor</strong> on your instructions.
+    </p>
+    <ul>
+      <li>Your data is accessed only to carry out the work you've asked for</li>
+      <li>Subscriber lists are not copied, exported, or retained beyond what the work requires</li>
+      <li>Your subscribers' data is never used for any other purpose</li>
+      <li>Working copies are returned or deleted when a project ends, on request</li>
+      <li>A Data Processing Agreement (DPA) or NDA can be signed on request</li>
+    </ul>
+    <p>
+      Client account credentials are stored in an encrypted password manager and are not
+      shared with anyone.
+    </p>
+  </div>
+
+  <hr>
+
+  <h2>International transfers</h2>
+
+  <p>
+    Zeplo Studio operates from Bangladesh, and the services listed above store data in the
+    United States and elsewhere. This means your information will be transferred outside
+    the UK, EU, and EEA.
+  </p>
+
+  <p>
+    For US-based providers, reliance is placed on their published transfer safeguards,
+    including Standard Contractual Clauses and, where applicable, the EU-US Data Privacy
+    Framework. Specifics on any single provider are available on request through the
+    <a href="{{ url_for('index') }}#contact">contact form</a>.
+  </p>
+
+  <hr>
+
+  <h2>How long it's kept</h2>
+
+  <ul>
+    <li><strong>Enquiries that don't become projects</strong> — up to 12 months, then deleted</li>
+    <li><strong>Client project records and correspondence</strong> — up to 6 years after the engagement ends, for tax and accounting purposes</li>
+    <li><strong>Client subscriber data</strong> — only for the duration of the work, unless you request retained access for an ongoing retainer</li>
+    <li><strong>Analytics</strong> — retained by Google according to the retention period set on the property</li>
+  </ul>
+
+  <p>You can request earlier deletion at any time. See <a href="#your-rights">Your rights</a> below.</p>
+
+  <hr>
+
+  <h2>Cookies and analytics</h2>
+
+  <p>
+    This site uses Google Analytics cookies to measure traffic. These are set only if you
+    consent via the cookie banner. If you decline, no analytics cookies are set and no
+    analytics data is collected.
+  </p>
+
+  <p>
+    You can also block cookies through your browser settings, or install Google's
+    <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener nofollow" target="_blank">browser opt-out add-on</a>.
+    Blocking cookies will not affect your ability to use the site or get in touch.
+  </p>
+
+  <p>
+    Essential cookies — those needed for the site to function and to remember your cookie
+    choice — do not require consent and cannot be turned off.
+  </p>
+
+  <hr>
+
+  <h2 id="your-rights">Your rights</h2>
+
+  <p>Depending on where you live, you may have the right to:</p>
+
+  <ul>
+    <li><strong>Access</strong> the personal information held about you</li>
+    <li><strong>Correct</strong> anything inaccurate</li>
+    <li><strong>Delete</strong> your information (right to erasure)</li>
+    <li><strong>Restrict or object</strong> to how it is used</li>
+    <li><strong>Portability</strong> — receive your data in a machine-readable format</li>
+    <li><strong>Withdraw consent</strong> at any time, where consent is the basis</li>
+    <li><strong>Complain</strong> to your local data protection authority</li>
+  </ul>
+
+  <p>
+    In the UK, that authority is the Information Commissioner's Office (ico.org.uk). In
+    the EU, it is your national supervisory authority.
+  </p>
+
+  <p>
+    <strong>If you're in California</strong>, you additionally have the right to know what
+    personal information is collected and to opt out of its sale. Personal information is
+    not sold, and no one is treated differently for exercising their rights.
+  </p>
+
+  <p>
+    To exercise any of these, use the <a href="{{ url_for('index') }}#contact">contact form</a> and describe
+    your request. A response will follow within 30 days. Confirmation of your identity may
+    be requested first — usually a reply from the email address in question is enough.
+  </p>
+
+  <hr>
+
+  <h2>Security</h2>
+
+  <p>
+    Reasonable steps are taken to protect your information: the site runs over HTTPS,
+    credentials are stored in an encrypted password manager, two-factor authentication is
+    enabled on every account used, and access to client platforms is limited to what each
+    project needs.
+  </p>
+
+  <p>
+    No system is completely secure, and no such claim is made here. If a breach occurs that
+    affects your personal information, you and the relevant authority will be notified as
+    required by law.
+  </p>
+
+  <hr>
+
+  <h2>Children</h2>
+
+  <p>
+    This site is aimed at businesses and is not intended for anyone under 16. Information
+    is not knowingly collected from children. If you believe a child has submitted
+    information through this site, get in touch and it will be deleted.
+  </p>
+
+  <hr>
+
+  <h2>Changes to this policy</h2>
+
+  <p>
+    This policy may be updated as the site or the services change. The "last updated" date
+    at the top always reflects the current version. Material changes affecting how your
+    information is used will be communicated directly where contact details are held.
+  </p>
+
+  <hr>
+
+  <h2>Get in touch</h2>
+
+  <p>
+    For any question about this policy, or to exercise any of the rights described above,
+    use the contact form. Postal address available on request.
+  </p>
+
+  <a class="cta" href="{{ url_for('index') }}#contact">
+    Contact form
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+      <path d="M2 7.5h11M8.5 3l4.5 4.5L8.5 12" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"/>
+    </svg>
+  </a>
+
+  <p style="margin-top:36px;font-family:var(--mono);font-size:13px;color:var(--faint)">
+    Zeplo Studio · Bangladesh · zeplostudio.com
+  </p>
+
+  <a class="back" href="{{ url_for('index') }}">&larr; Back to zeplostudio.com</a>
+
+</main>
+{% endblock %}

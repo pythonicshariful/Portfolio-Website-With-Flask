@@ -19,6 +19,12 @@ try:
         print("- hero_trust_text:", e)
 
     try:
+        cursor.execute('ALTER TABLE site_settings ADD COLUMN hero_eyebrow VARCHAR(255) DEFAULT "Marketing • Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development"')
+        print("- Added hero_eyebrow column.")
+    except sqlite3.OperationalError as e:
+        print("- hero_eyebrow:", e)
+
+    try:
         cursor.execute('ALTER TABLE portfolio_item ADD COLUMN summary VARCHAR(500)')
         print("- Added summary column.")
     except sqlite3.OperationalError as e:
@@ -38,9 +44,14 @@ from models import SiteSettings, PortfolioItem
 with app.app_context():
     # Update existing settings
     settings = SiteSettings.query.first()
-    if settings and not settings.hero_trust_text:
-        settings.hero_trust_text = "Platforms & tools I work in"
+    if settings:
+        if not settings.hero_trust_text:
+            settings.hero_trust_text = "Platforms & tools I work in"
+        if not settings.hero_eyebrow:
+            settings.hero_eyebrow = "Marketing • Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development"
         db.session.commit()
+        
+    db.create_all()
         
     # Replace Portfolio Items
     PortfolioItem.query.delete()

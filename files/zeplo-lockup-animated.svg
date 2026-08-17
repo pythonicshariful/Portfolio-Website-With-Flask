@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="400" viewBox="0 0 1180 400" font-family="Space Grotesk, DejaVu Sans, sans-serif"><style>
+.cell {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: draw 3.6s cubic-bezier(.22,1,.36,1) infinite;
+  opacity: 0;
+}
+@keyframes draw {
+  0%   { opacity: 0; transform: scale(.25); fill: #00E5B0; }
+  3%   { opacity: 1; transform: scale(1.22); fill: #00E5B0; }
+  8%   { opacity: 1; transform: scale(1);    fill: #5B3FF8; }
+  78%  { opacity: 1; transform: scale(1);    fill: #5B3FF8; }
+  86%  { opacity: 0; transform: scale(.25);  fill: #5B3FF8; }
+  100% { opacity: 0; transform: scale(.25);  fill: #5B3FF8; }
+}
+.word { animation: rise 3.6s ease-out infinite; opacity: 0; }
+@keyframes rise {
+  0%,32%   { opacity: 0; transform: translateX(-14px); }
+  42%      { opacity: 1; transform: translateX(0); }
+  76%      { opacity: 1; transform: translateX(0); }
+  84%,100% { opacity: 0; transform: translateX(0); }
+}
+.tag { animation: rise 3.6s ease-out infinite; animation-delay: .18s; opacity: 0;
+        transform-box: fill-box; }
+@media (prefers-reduced-motion: reduce) {
+  .cell, .word, .tag { animation: none; opacity: 1; fill: #5B3FF8; }
+}
+</style><g id="ghost"><rect x="90" y="92" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="144" y="92" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="198" y="92" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="252" y="92" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="306" y="92" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="90" y="146" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="144" y="146" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="198" y="146" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="252" y="146" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="306" y="146" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="90" y="200" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="144" y="200" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="198" y="200" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="252" y="200" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="306" y="200" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="90" y="254" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="144" y="254" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="198" y="254" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="252" y="254" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="306" y="254" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="90" y="308" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="144" y="308" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="198" y="308" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="252" y="308" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/><rect x="306" y="308" width="43" height="43" rx="6.9" fill="#8B86A8" fill-opacity=".08"/></g><rect class="cell" x="90" y="92" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.00s"/><rect class="cell" x="144" y="92" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.09s"/><rect class="cell" x="198" y="92" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.18s"/><rect class="cell" x="252" y="92" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.27s"/><rect class="cell" x="306" y="92" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.36s"/><rect class="cell" x="252" y="146" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.45s"/><rect class="cell" x="198" y="200" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.54s"/><rect class="cell" x="144" y="254" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.63s"/><rect class="cell" x="90" y="308" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.72s"/><rect class="cell" x="144" y="308" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.81s"/><rect class="cell" x="198" y="308" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.90s"/><rect class="cell" x="252" y="308" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:0.99s"/><rect class="cell" x="306" y="308" width="43" height="43" rx="6.9" fill="#5B3FF8" style="animation-delay:1.08s"/><g class="word"><text x="421" y="220" font-size="96" font-weight="700" letter-spacing="-3" fill="#5B3FF8">zeplo <tspan fill="#8B86A8" font-weight="500">studio</tspan></text></g><g class="tag"><text x="425" y="266" font-family="DM Mono, DejaVu Sans Mono, monospace" font-size="25" letter-spacing="5.5" fill="#00E5B0">every pixel has a purpose</text></g></svg>

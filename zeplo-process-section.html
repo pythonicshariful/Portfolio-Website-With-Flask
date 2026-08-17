@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  ZEPLO STUDIO — "HOW I WORK" PROCESS SECTION
+  Spec reference: P1, Section 13
+  Place between the Services grid and the Portfolio section.
+
+  DEVELOPER NOTES
+  ---------------
+  1. Everything you need is between the two <!-- SECTION START/END --> markers.
+  2. All colours are driven by CSS custom properties declared in :root and
+     [data-theme="light"]. Map these to the site's existing tokens rather than
+     hardcoding — the two brand values are already correct:
+        --zeplo-purple : #5B3FF8
+        --zeplo-teal   : #00E5B0
+  3. Fonts assume Space Grotesk + DM Mono are already loaded sitewide.
+     Remove the <link> tags below if so.
+  4. The theme switcher at the top of this file is a PREVIEW AID ONLY.
+     Do not ship it. Delete the .preview-bar block and the small script
+     at the bottom, then set data-theme on <html> to match the live site.
+  5. Scroll reveal uses IntersectionObserver with a no-JS fallback
+     (cards are visible by default if JS fails). prefers-reduced-motion
+     is respected.
+================================================================================
+-->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeplo Studio — Process Section</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ========================================================================
+   TOKENS
+   ======================================================================== */
+:root{
+  /* Brand — do not alter */
+  --zeplo-purple:#5B3FF8;
+  --zeplo-purple-soft:rgba(91,63,248,.16);
+  --zeplo-teal:#00E5B0;
+  --zeplo-teal-soft:rgba(0,229,176,.14);
+
+  /* Dark theme surface */
+  --bg:#0A0A12;
+  --bg-raised:#12111C;
+  --bg-cell:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.16);
+  --ink:#EDEDF2;
+  --ink-muted:#9695AB;
+  --ink-faint:#5E5D72;
+
+  /* Type */
+  --display:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  --mono:'DM Mono','SF Mono',ui-monospace,monospace;
+
+  /* Rhythm */
+  --gutter:clamp(20px,5vw,64px);
+  --radius:14px;
+  --pixel:9px;
+}
+
+[data-theme="light"]{
+  --bg:#F6F6FB;
+  --bg-raised:#FFFFFF;
+  --bg-cell:rgba(20,19,31,.07);
+  --line:#E7E7F0;
+  --line-strong:#D3D3E2;
+  --ink:#14131F;
+  --ink-muted:#5C5B70;
+  --ink-faint:#9C9BB0;
+  --zeplo-purple-soft:rgba(91,63,248,.1);
+  --zeplo-teal-soft:rgba(0,229,176,.18);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:var(--display);
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s ease;
+}
+
+/* ========================================================================
+   PREVIEW BAR — DELETE BEFORE SHIPPING
+   ======================================================================== */
+.preview-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+  padding:14px var(--gutter);
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-faint);
+}
+.preview-bar strong{color:var(--ink-muted);font-weight:500;}
+.preview-toggle{
+  display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;
+  overflow:hidden;
+}
+.preview-toggle button{
+  font:inherit;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:0;color:var(--ink-faint);
+  padding:7px 16px;cursor:pointer;transition:.2s;
+}
+.preview-toggle button[aria-pressed="true"]{
+  background:var(--zeplo-purple);color:#fff;
+}
+
+/* ========================================================================
+   SECTION SHELL
+   ======================================================================== */
+.zs-process{
+  padding:clamp(72px,10vw,124px) var(--gutter);
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+
+/* Ambient pixel-grid wash — the brand mark, enlarged and pushed back */
+.zs-process::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right,var(--line) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 0%,#000 0%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 55% at 50% 0%,#000 0%,transparent 75%);
+  opacity:.55;
+}
+
+.zs-inner{max-width:1180px;margin:0 auto;position:relative;}
+
+/* ========================================================================
+   HEADER
+   ======================================================================== */
+.zs-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--zeplo-teal);
+  margin:0 0 20px;
+}
+.zs-eyebrow .dot{
+  width:6px;height:6px;background:var(--zeplo-teal);
+  box-shadow:0 0 0 4px var(--zeplo-teal-soft);
+}
+
+.zs-title{
+  font-size:clamp(30px,4.4vw,50px);
+  font-weight:700;line-height:1.06;letter-spacing:-.028em;
+  color:var(--ink);margin:0 0 18px;max-width:15ch;
+}
+.zs-title em{
+  font-style:normal;
+  color:var(--zeplo-purple);
+}
+[data-theme="dark"] .zs-title em{color:#9F8CFF;}
+
+.zs-lede{
+  font-size:clamp(15px,1.6vw,17.5px);line-height:1.65;
+  color:var(--ink-muted);margin:0;max-width:56ch;
+}
+
+/* ========================================================================
+   THE RAIL + CARDS
+   ======================================================================== */
+.zs-track{
+  margin-top:clamp(48px,6vw,76px);
+  position:relative;
+}
+
+/* Dashed pixel rail threading the four steps together */
+.zs-rail{
+  position:absolute;left:0;right:0;top:22px;height:2px;
+  background-image:linear-gradient(to right,var(--line-strong) 0 8px,transparent 8px 16px);
+  background-size:16px 2px;
+  display:none;
+}
+@media (min-width:940px){ .zs-rail{display:block;} }
+
+.zs-steps{
+  display:grid;gap:clamp(18px,2.4vw,26px);
+  grid-template-columns:1fr;
+  position:relative;
+}
+@media (min-width:600px){ .zs-steps{grid-template-columns:repeat(2,1fr);} }
+@media (min-width:940px){ .zs-steps{grid-template-columns:repeat(4,1fr);} }
+
+.zs-step{
+  background:var(--bg-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px 24px 24px;
+  display:flex;flex-direction:column;
+  position:relative;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),
+             border-color .35s ease,
+             box-shadow .35s ease;
+}
+
+/* Reveal state */
+.zs-step{opacity:1;}
+.js-ready .zs-step{opacity:0;transform:translateY(20px);}
+.js-ready .zs-step.is-in{opacity:1;transform:none;
+  transition:opacity .6s ease var(--d,0s),transform .6s cubic-bezier(.22,1,.36,1) var(--d,0s);}
+
+.zs-step:hover{
+  transform:translateY(-5px);
+  border-color:var(--line-strong);
+  box-shadow:0 18px 44px -22px rgba(91,63,248,.55);
+}
+[data-theme="light"] .zs-step:hover{
+  box-shadow:0 18px 40px -20px rgba(20,19,31,.22);
+}
+
+/* ---- Pixel meter: the step number, rendered as the brand's grid ---- */
+.zs-meter{
+  display:flex;gap:4px;margin-bottom:22px;
+}
+.zs-meter i{
+  width:var(--pixel);height:var(--pixel);
+  background:var(--bg-cell);
+  border-radius:2px;
+  transition:background .3s ease,transform .3s ease;
+}
+.zs-meter i.on{background:var(--zeplo-purple);}
+.zs-meter i.now{background:var(--zeplo-teal);}
+.zs-step:hover .zs-meter i.now{transform:scale(1.28);}
+
+/* ---- Label + title ---- */
+.zs-label{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 9px;
+}
+.zs-step h3{
+  font-size:20px;font-weight:600;letter-spacing:-.015em;
+  color:var(--ink);margin:0 0 12px;
+}
+.zs-step p{
+  font-size:14.5px;line-height:1.62;color:var(--ink-muted);
+  margin:0 0 22px;
+}
+
+/* ---- Deliverable footer: what the client actually receives ---- */
+.zs-gets{
+  margin-top:auto;padding-top:16px;
+  border-top:1px dashed var(--line-strong);
+  display:flex;align-items:flex-start;gap:9px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.5;
+  letter-spacing:.02em;color:var(--ink-faint);
+}
+.zs-gets svg{flex:none;margin-top:1px;color:var(--zeplo-teal);}
+.zs-gets b{color:var(--ink-muted);font-weight:500;}
+
+/* ========================================================================
+   CLOSING CTA
+   ======================================================================== */
+.zs-foot{
+  margin-top:clamp(38px,4.5vw,56px);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:22px;flex-wrap:wrap;
+}
+.zs-foot p{
+  font-size:15px;color:var(--ink-muted);margin:0;max-width:46ch;
+}
+.zs-cta{
+  display:inline-flex;align-items:center;gap:11px;
+  background:var(--zeplo-purple);color:#fff;
+  font-family:var(--display);font-size:15px;font-weight:600;
+  letter-spacing:-.005em;text-decoration:none;
+  padding:15px 26px;border-radius:10px;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+  white-space:nowrap;
+}
+.zs-cta:hover{
+  background:#4B31E0;transform:translateY(-2px);
+  box-shadow:0 14px 30px -12px rgba(91,63,248,.7);
+}
+.zs-cta svg{transition:transform .25s ease;}
+.zs-cta:hover svg{transform:translateX(3px);}
+
+/* ========================================================================
+   A11Y FLOOR
+   ======================================================================== */
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--zeplo-teal);
+  outline-offset:3px;border-radius:4px;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;transition-duration:.01ms!important;
+  }
+  .js-ready .zs-step{opacity:1!important;transform:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ⚠ PREVIEW ONLY — DELETE THIS BLOCK -->
+<div class="preview-bar">
+  <span><strong>Preview</strong> · zeplostudio.com — process section</span>
+  <span class="preview-toggle">
+    <button type="button" data-set="dark" aria-pressed="true">Dark</button>
+    <button type="button" data-set="light" aria-pressed="false">Light</button>
+  </span>
+</div>
+
+
+<!-- ============================ SECTION START ============================ -->
+<section class="zs-process" id="process" aria-labelledby="process-title">
+  <div class="zs-inner">
+
+    <p class="zs-eyebrow"><span class="dot" aria-hidden="true"></span>How I Work</p>
+    <h2 class="zs-title" id="process-title">Four steps. <em>No guesswork.</em></h2>
+    <p class="zs-lede">
+      Most email programmes fail because nobody checked the foundations first. Here's the
+      order I work in, and exactly what lands in your inbox at the end of each stage.
+    </p>
+
+    <div class="zs-track">
+      <div class="zs-rail" aria-hidden="true"></div>
+
+      <ol class="zs-steps">
+
+        <li class="zs-step" style="--d:0s">
+          <span class="zs-meter" role="img" aria-label="Step 1 of 4">
+            <i class="now"></i><i></i><i></i><i></i>
+          </span>
+          <p class="zs-label">01 — Audit</p>
+          <h3>Find what's actually broken</h3>
+          <p>
+            I review your sending domain, authentication records, list health, and campaign
+            history — then tell you plainly which of those is costing you money.
+          </p>
+          <span class="zs-gets">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+            <span><b>You get:</b> a written audit with prioritised fixes</span>
+          </span>
+        </li>
+
+        <li class="zs-step" style="--d:.08s">
+          <span class="zs-meter" role="img" aria-label="Step 2 of 4">
+            <i class="on"></i><i class="now"></i><i></i><i></i>
+          </span>
+          <p class="zs-label">02 — Strategy</p>
+          <h3>Agree the plan before any build</h3>
+          <p>
+            We settle scope, timeline, and what success looks like in numbers. You approve it
+            in writing, so nothing gets built that you didn't ask for.
+          </p>
+          <span class="zs-gets">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+            <span><b>You get:</b> a scoped plan with fixed dates</span>
+          </span>
+        </li>
+
+        <li class="zs-step" style="--d:.16s">
+          <span class="zs-meter" role="img" aria-label="Step 3 of 4">
+            <i class="on"></i><i class="on"></i><i class="now"></i><i></i>
+          </span>
+          <p class="zs-label">03 — Build</p>
+          <h3>Ship it, tested everywhere</h3>
+          <p>
+            Flows, templates, segments, and domain authentication — built by hand in
+            table-based HTML and checked in Gmail, Outlook, and Apple Mail before it goes live.
+          </p>
+          <span class="zs-gets">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+            <span><b>You get:</b> a live, documented setup you own</span>
+          </span>
+        </li>
+
+        <li class="zs-step" style="--d:.24s">
+          <span class="zs-meter" role="img" aria-label="Step 4 of 4">
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i>
+          </span>
+          <p class="zs-label">04 — Report</p>
+          <h3>Know what worked, monthly</h3>
+          <p>
+            A plain-English report every month: what performed, what didn't, and the two or
+            three things I'd change next. No dashboards you'll never open.
+          </p>
+          <span class="zs-gets">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+            <span><b>You get:</b> a monthly PDF with next steps</span>
+          </span>
+        </li>
+
+      </ol>
+    </div>
+
+    <div class="zs-foot">
+      <p>Step one is free. I'll audit your current setup and send the summary within 48 hours — no obligation.</p>
+      <a class="zs-cta" href="#contact">
+        Start with the free audit
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2 7.5h11M8.5 3l4.5 4.5L8.5 12" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+<!-- ============================= SECTION END ============================= -->
+
+
+<script>
+/* Scroll reveal — keep this. Cards render visible if JS fails. */
+(function(){
+  var steps = document.querySelectorAll('.zs-step');
+  if(!('IntersectionObserver' in window) || !steps.length) return;
+  document.body.classList.add('js-ready');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  },{threshold:.2, rootMargin:'0px 0px -40px 0px'});
+  steps.forEach(function(s){ io.observe(s); });
+})();
+
+/* ⚠ PREVIEW ONLY — DELETE THIS BLOCK */
+document.querySelectorAll('.preview-toggle button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.documentElement.setAttribute('data-theme', b.dataset.set);
+    document.querySelectorAll('.preview-toggle button').forEach(function(x){
+      x.setAttribute('aria-pressed', String(x===b));
+    });
+  });
+});
+</script>
+
+</body>
+</html>

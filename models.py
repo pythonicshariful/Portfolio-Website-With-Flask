@@ -21,6 +21,7 @@ class SiteSettings(db.Model):
     google_analytics_id = db.Column(db.String(100), default="")
     
     # Hero Content
+    hero_eyebrow = db.Column(db.String(255), default="Marketing • Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development")
     hero_title = db.Column(db.String(255), default="Transform Your Business with Data-Driven Email Marketing")
     hero_subtext = db.Column(db.String(500), default="Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development")
     hero_trust_text = db.Column(db.String(255), default="Platforms & tools I work in")
@@ -97,3 +98,18 @@ class Lead(db.Model, BaseMixin):
     details = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(20), default="New") # New, Contacted, Completed
+
+class FaqItem(db.Model, BaseMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(255), nullable=False)
+    answer = db.Column(db.Text, nullable=False)
+    order = db.Column(db.Integer, default=0)
+
+class ProcessStep(db.Model, BaseMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    step_number = db.Column(db.String(10), nullable=False)  # e.g. "01"
+    label = db.Column(db.String(100), nullable=False)       # e.g. "Audit"
+    title = db.Column(db.String(255), nullable=False)       # e.g. "Find what's actually broken"
+    description = db.Column(db.Text, nullable=False)
+    deliverable = db.Column(db.String(255), nullable=False) # e.g. "a written audit..."
+    order = db.Column(db.Integer, default=0)

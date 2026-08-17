@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner, Lead
+from models import db, User, SiteSettings, Stat, AboutInfo, Service, PortfolioItem, Testimonial, SocialLink, Partner, Lead, FaqItem, ProcessStep
 from datetime import datetime
 import config
 
@@ -108,6 +108,26 @@ with app.app_context():
             Partner(name="Salesforce", icon_name="salesforce", order=8)
         ]
         db.session.add_all(partners)
+
+    if not FaqItem.query.first():
+        faqs = [
+            FaqItem(question="Why are my emails going to spam?", answer="Usually one of four causes: an unauthenticated sending domain (missing SPF, DKIM, or DMARC), a list with high inactivity, sending volume that spikes unnaturally, or poor engagement signals. An audit identifies which applies to you.", order=1),
+            FaqItem(question="Should I use Mailchimp or Klaviyo?", answer="Klaviyo is generally stronger for Shopify and WooCommerce stores that need deep purchase-behaviour automation. Mailchimp is more cost-effective for content newsletters, B2B, and service businesses. I work in both and will recommend based on your setup, not my preference.", order=2),
+            FaqItem(question="How much does this cost?", answer="Audits start at $299. Ongoing retainers start at $350/month. Full platform builds are quoted per project after a discovery call.", order=3),
+            FaqItem(question="How long does deliverability recovery take?", answer="Typically 4 to 12 weeks. Sender reputation rebuilds gradually through consistent, well-targeted sending — anyone promising a fix in days is not being straight with you.", order=4),
+            FaqItem(question="Do you work with my timezone?", answer="Yes. I work with clients across the US, UK, EU, and Middle East, and schedule calls in your local time.", order=5),
+            FaqItem(question="Can you take over an existing account?", answer="Yes. I regularly audit and take over accounts built by previous agencies or freelancers.", order=6)
+        ]
+        db.session.add_all(faqs)
+
+    if not ProcessStep.query.first():
+        steps = [
+            ProcessStep(step_number="01", label="Audit", title="Find what's actually broken", description="I review your sending domain, authentication records, list health, and campaign history — then tell you plainly which of those is costing you money.", deliverable="a written audit with prioritised fixes", order=1),
+            ProcessStep(step_number="02", label="Strategy", title="Agree the plan before any build", description="We settle scope, timeline, and what success looks like in numbers. You approve it in writing, so nothing gets built that you didn't ask for.", deliverable="a scoped plan with fixed dates", order=2),
+            ProcessStep(step_number="03", label="Build", title="Ship it, tested everywhere", description="Flows, templates, segments, and domain authentication — built by hand in table-based HTML and checked in Gmail, Outlook, and Apple Mail before it goes live.", deliverable="a live, documented setup you own", order=3),
+            ProcessStep(step_number="04", label="Report", title="Know what worked, monthly", description="A plain-English report every month: what performed, what didn't, and the two or three things I'd change next. No dashboards you'll never open.", deliverable="a monthly PDF with next steps", order=4),
+        ]
+        db.session.add_all(steps)
         
     db.session.commit()
 
@@ -123,6 +143,8 @@ def index():
     testimonials = Testimonial.query.order_by(Testimonial.order).all()
     social_links = SocialLink.query.order_by(SocialLink.order).all()
     partners = Partner.query.order_by(Partner.order).all()
+    faqs = FaqItem.query.order_by(FaqItem.order).all()
+    process_steps = ProcessStep.query.order_by(ProcessStep.order).all()
     return render_template('index.html', 
                          settings=settings, 
                          about=about, 
@@ -131,7 +153,15 @@ def index():
                          portfolio=portfolio,
                          testimonials=testimonials,
                          social_links=social_links,
-                         partners=partners)
+                         partners=partners,
+                         faqs=faqs,
+                         process_steps=process_steps)
+
+@app.route('/privacy-policy')
+def privacy_policy():
+    settings = SiteSettings.query.first()
+    social_links = SocialLink.query.order_by(SocialLink.order).all()
+    return render_template('privacy_policy.html', settings=settings, social_links=social_links)
 
 @app.context_processor
 def inject_global_data():
@@ -238,8 +268,7 @@ def submit_lead():
     db.session.commit()
     
     # Send Notification Email
-    settings = SiteSettings.query.first()
-    target_email = settings.contact_email if settings and settings.contact_email else "skahmed0912@gmail.com"
+    target_email = "info@zeplostudio.com"
     
     lead_body = f"""
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -253,10 +282,6 @@ def submit_lead():
             <tr>
                 <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
                 <td style="padding: 10px; border-bottom: 1px solid #eee;">{email}</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Whatsapp:</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">{whatsapp}</td>
             </tr>
             <tr>
                 <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
@@ -292,6 +317,8 @@ def admin_dashboard():
     social_links = SocialLink.query.all()
     partners = Partner.query.all()
     leads = Lead.query.order_by(Lead.created_at.desc()).all()
+    faqs = FaqItem.query.order_by(FaqItem.order).all()
+    process_steps = ProcessStep.query.order_by(ProcessStep.order).all()
     return render_template('admin/dashboard.html', 
                          settings=settings, 
                          stats=stats, 
@@ -301,7 +328,9 @@ def admin_dashboard():
                          testimonials=testimonials,
                          social_links=social_links,
                          partners=partners,
-                         leads=leads)
+                         leads=leads,
+                         faqs=faqs,
+                         process_steps=process_steps)
 
 # --- CRUD Routes ---
 
@@ -309,6 +338,7 @@ def admin_dashboard():
 @login_required
 def update_settings():
     settings = SiteSettings.query.first()
+    settings.hero_eyebrow = request.form.get('hero_eyebrow')
     settings.hero_title = request.form.get('hero_title')
     settings.hero_subtext = request.form.get('hero_subtext')
     settings.hero_trust_text = request.form.get('hero_trust_text')
@@ -548,6 +578,97 @@ def delete_lead(id):
     db.session.commit()
     flash('Lead deleted successfully')
     return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/faq/add', methods=['POST'])
+@login_required
+def add_faq():
+    faq = FaqItem(question=request.form.get('question'), answer=request.form.get('answer'), order=request.form.get('order'))
+    db.session.add(faq)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/faq/delete/<int:id>')
+@login_required
+def delete_faq(id):
+    faq = FaqItem.query.get_or_404(id)
+    db.session.delete(faq)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/faq/update/<int:id>', methods=['POST'])
+@login_required
+def update_faq(id):
+    faq = FaqItem.query.get_or_404(id)
+    faq.question = request.form.get('question')
+    faq.answer = request.form.get('answer')
+    faq.order = request.form.get('order')
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/process/add', methods=['POST'])
+@login_required
+def add_process_step():
+    step = ProcessStep(
+        step_number=request.form.get('step_number'),
+        label=request.form.get('label'),
+        title=request.form.get('title'),
+        description=request.form.get('description'),
+        deliverable=request.form.get('deliverable'),
+        order=request.form.get('order', 0)
+    )
+    db.session.add(step)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/process/delete/<int:id>')
+@login_required
+def delete_process_step(id):
+    step = ProcessStep.query.get_or_404(id)
+    db.session.delete(step)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/process/update/<int:id>', methods=['POST'])
+@login_required
+def update_process_step(id):
+    step = ProcessStep.query.get_or_404(id)
+    step.step_number = request.form.get('step_number')
+    step.label = request.form.get('label')
+    step.title = request.form.get('title')
+    step.description = request.form.get('description')
+    step.deliverable = request.form.get('deliverable')
+    step.order = request.form.get('order', 0)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/sitemap.xml')
+def sitemap():
+    settings = SiteSettings.query.first()
+    # Simple dynamic sitemap
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # Homepage
+    xml += '  <url>\n'
+    xml += '    <loc>https://zeplostudio.com/</loc>\n'
+    xml += '    <changefreq>weekly</changefreq>\n'
+    xml += '    <priority>1.0</priority>\n'
+    xml += '  </url>\n'
+    
+    # Services section
+    xml += '  <url>\n'
+    xml += '    <loc>https://zeplostudio.com/#services</loc>\n'
+    xml += '    <changefreq>monthly</changefreq>\n'
+    xml += '    <priority>0.8</priority>\n'
+    xml += '  </url>\n'
+    
+    xml += '</urlset>'
+    return app.response_class(xml, mimetype='application/xml')
+
+@app.route('/robots.txt')
+def robots():
+    content = "User-agent: *\nAllow: /\nSitemap: https://zeplostudio.com/sitemap.xml\n"
+    return app.response_class(content, mimetype='text/plain')
 
 if __name__ == '__main__':
     app.run(debug=True)

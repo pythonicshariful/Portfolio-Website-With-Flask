@@ -20,7 +20,7 @@
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
             <div class="inline-flex items-center gap-2 px-6 py-2 bg-teal/10 rounded-full mb-6" data-aos="fade-down" data-aos-delay="200">
                 <span class="w-1.5 h-1.5 bg-teal rounded-full animate-pulse"></span>
-                <span class="text-[11px] font-bold text-teal uppercase tracking-[0.2em]">Marketing • Mailchimp Pro Partner • Klaviyo Partner • UI/UX Design and Development</span>
+                <span class="text-[11px] font-bold text-teal uppercase tracking-[0.2em]">{{ settings.hero_eyebrow }}</span>
             </div>
             
             <h1 class="text-[48px] lg:text-[72px] font-bold leading-[1.1] lg:leading-[85px] mb-8 tracking-tight text-gradient" data-aos="fade-up" data-aos-delay="400">
@@ -32,8 +32,8 @@
             </p>
             
             <div class="flex flex-wrap justify-center gap-6 mb-12" data-aos="fade-up" data-aos-delay="800">
-                <a href="#contact" class="px-8 py-4 bg-purple text-white font-bold rounded-full shadow-lg hover:shadow-purple/25 transition-all">Book a Free Audit</a>
-                <a href="#portfolio" class="px-8 py-4 bg-white text-navy font-bold rounded-full shadow-lg hover:shadow-xl transition-all">View My Portfolio</a>
+                <a href="https://tidycal.com/free-email-audit/30-minute" target="_blank" class="px-8 py-4 bg-purple text-white font-bold rounded-full shadow-lg hover:shadow-purple/25 transition-all">Book a Free 30-Min Audit</a>
+                <a href="#portfolio" class="px-8 py-4 bg-white text-navy font-bold rounded-full shadow-lg hover:shadow-xl transition-all">See Real Results</a>
             </div>
 
             <div class="flex flex-wrap justify-center items-center gap-8 lg:gap-10 pt-6" data-aos="fade-up" data-aos-delay="1000">
@@ -97,8 +97,8 @@
 <section id="services" class="py-32 bg-[#FBFDFF]">
     <div class="container mx-auto px-6 max-w-[1280px]">
         <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-            <h2 class="text-[48px] font-bold text-navy mb-4 leading-tight">Services That Scale Your Business</h2>
-            <p class="text-[18px] text-slate-500 font-medium leading-relaxed">From email automation to full-stack development, I bring technical expertise and marketing strategy together.</p>
+            <h2 class="text-[48px] font-bold text-navy mb-4 leading-tight">Six services. One specialist. Your entire email programme.</h2>
+            <p class="text-[18px] text-slate-500 font-medium leading-relaxed">Audits, platform builds, automation flows, hand-coded campaigns, list cleanup, and landing pages — for e-commerce and B2B brands on Mailchimp or Klaviyo.</p>
         </div>
         <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for service in services %}
@@ -146,41 +146,205 @@
 </section>
 
 <!-- Process Section -->
-<section id="process" class="py-32 bg-white relative overflow-hidden">
-    <div class="container mx-auto px-6 max-w-[1280px]">
-        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-            <h2 class="text-[48px] font-bold text-navy mb-4 leading-tight">My Process</h2>
-            <p class="text-[18px] text-slate-500 font-medium font-mono">A proven approach to scaling email revenue.</p>
-        </div>
-        <div class="grid lg:grid-cols-4 gap-8 relative">
-            <div class="hidden lg:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-slate-100 -z-10"></div>
-            
-            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:border-purple/30 transition-all hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="0">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple font-bold font-mono text-xl mb-6 shadow-sm group-hover:bg-purple group-hover:text-white transition-colors">01</div>
-                <h3 class="text-xl font-bold text-navy mb-3">Audit</h3>
-                <p class="text-slate-500 leading-relaxed font-medium">I review your current setup, list health, and sending history — and send you a written summary.</p>
-            </div>
-            
-            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:border-purple/30 transition-all hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple font-bold font-mono text-xl mb-6 shadow-sm group-hover:bg-purple group-hover:text-white transition-colors">02</div>
-                <h3 class="text-xl font-bold text-navy mb-3">Strategy</h3>
-                <p class="text-slate-500 leading-relaxed font-medium">I agree with you on priorities, timelines, and what success looks like before any work starts.</p>
-            </div>
-            
-            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:border-purple/30 transition-all hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple font-bold font-mono text-xl mb-6 shadow-sm group-hover:bg-purple group-hover:text-white transition-colors">03</div>
-                <h3 class="text-xl font-bold text-navy mb-3">Build</h3>
-                <p class="text-slate-500 leading-relaxed font-medium">Flows, templates, segments, and authentication — built, tested across clients, and documented.</p>
-            </div>
-            
-            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:border-purple/30 transition-all hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple font-bold font-mono text-xl mb-6 shadow-sm group-hover:bg-purple group-hover:text-white transition-colors">04</div>
-                <h3 class="text-xl font-bold text-navy mb-3">Report</h3>
-                <p class="text-slate-500 leading-relaxed font-medium">Monthly performance reports in plain English, with the next month's recommendations.</p>
-            </div>
-        </div>
+<section id="process" class="zs-process" aria-labelledby="process-title">
+  <div class="zs-inner">
+
+    <p class="zs-eyebrow" data-aos="fade-up">
+      <span class="dot" aria-hidden="true"></span>How I Work
+    </p>
+    <h2 class="zs-title" id="process-title" data-aos="fade-up" data-aos-delay="100">
+      Four steps. <em>No guesswork.</em>
+    </h2>
+    <p class="zs-lede" data-aos="fade-up" data-aos-delay="200">
+      Most email programmes fail because nobody checked the foundations first. Here's the
+      order I work in, and exactly what lands in your inbox at the end of each stage.
+    </p>
+
+    <div class="zs-track">
+      <div class="zs-rail" aria-hidden="true"></div>
+      <ol class="zs-steps">
+        {% for step in process_steps %}
+        {% set total = process_steps|length %}
+        <li class="zs-step" style="--d:{{ loop.index0 * 0.08 }}s" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+          <!-- Pixel meter: filled dots = completed, current = teal -->
+          <span class="zs-meter" role="img" aria-label="Step {{ loop.index }} of {{ total }}">
+            {% for i in range(total) %}
+              {% if i < loop.index0 %}
+                <i class="on"></i>
+              {% elif i == loop.index0 %}
+                <i class="now"></i>
+              {% else %}
+                <i></i>
+              {% endif %}
+            {% endfor %}
+          </span>
+          <p class="zs-label">{{ step.step_number }} — {{ step.label }}</p>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+          <span class="zs-gets">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1.5 6.5 4.5 9.5 10.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+            <span><b>You get:</b> {{ step.deliverable }}</span>
+          </span>
+        </li>
+        {% endfor %}
+      </ol>
     </div>
+
+    <div class="zs-foot" data-aos="fade-up">
+      <p>Step one is free. I'll audit your current setup and send the summary within 48 hours — no obligation.</p>
+      <a class="zs-cta" href="https://tidycal.com/free-email-audit/30-minute" target="_blank">
+        Start with the free audit
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2 7.5h11M8.5 3l4.5 4.5L8.5 12" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"/></svg>
+      </a>
+    </div>
+
+  </div>
 </section>
+
+<style>
+/* ── Process Section CSS (mapped to site tokens) ────────────────────────── */
+.zs-process {
+  padding: clamp(72px,10vw,124px) clamp(20px,5vw,64px);
+  background: #0F172A; /* navy */
+  position: relative;
+  overflow: hidden;
+}
+.zs-process::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 0%, transparent 75%);
+  opacity: .55;
+}
+.zs-inner { max-width: 1180px; margin: 0 auto; position: relative; }
+
+/* Header */
+.zs-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #00E5B0; margin: 0 0 20px;
+}
+.zs-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #00E5B0;
+  box-shadow: 0 0 0 4px rgba(0,229,176,.14);
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 4px rgba(0,229,176,.14);} 50%{box-shadow:0 0 0 8px rgba(0,229,176,.04);} }
+.zs-title {
+  font-size: clamp(30px,4.4vw,50px); font-weight: 700;
+  line-height: 1.06; letter-spacing: -.028em;
+  color: #EDEDF2; margin: 0 0 18px; max-width: 15ch;
+}
+.zs-title em { font-style: normal; color: #9F8CFF; }
+.zs-lede {
+  font-size: clamp(15px,1.6vw,17.5px); line-height: 1.65;
+  color: #9695AB; margin: 0; max-width: 56ch;
+}
+
+/* Rail + Steps */
+.zs-track { margin-top: clamp(48px,6vw,76px); position: relative; }
+.zs-rail {
+  position: absolute; left: 0; right: 0; top: 22px; height: 2px;
+  background-image: linear-gradient(to right, rgba(255,255,255,.16) 0 8px, transparent 8px 16px);
+  background-size: 16px 2px; display: none;
+}
+@media (min-width:940px){ .zs-rail{display:block;} }
+.zs-steps {
+  display: grid; gap: clamp(18px,2.4vw,26px);
+  grid-template-columns: 1fr;
+  list-style: none; padding: 0; margin: 0;
+  position: relative;
+}
+@media (min-width:600px){ .zs-steps{grid-template-columns:repeat(2,1fr);} }
+@media (min-width:940px){ .zs-steps{grid-template-columns:repeat(4,1fr);} }
+.zs-step {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 14px; padding: 26px 24px 24px;
+  display: flex; flex-direction: column;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease, box-shadow .35s ease;
+}
+.zs-step:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 18px 44px -22px rgba(91,63,248,.55);
+}
+
+/* Pixel meter */
+.zs-meter { display: flex; gap: 4px; margin-bottom: 22px; }
+.zs-meter i {
+  width: 9px; height: 9px;
+  background: rgba(255,255,255,.07);
+  border-radius: 2px;
+  transition: background .3s ease, transform .3s ease;
+  font-style: normal;
+}
+.zs-meter i.on { background: #5B3FF8; }
+.zs-meter i.now { background: #00E5B0; }
+.zs-step:hover .zs-meter i.now { transform: scale(1.28); }
+
+/* Labels */
+.zs-label {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 11.5px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #5E5D72; margin: 0 0 9px;
+}
+.zs-step h3 {
+  font-size: 20px; font-weight: 600; letter-spacing: -.015em;
+  color: #EDEDF2; margin: 0 0 12px;
+}
+.zs-step p {
+  font-size: 14.5px; line-height: 1.62; color: #9695AB;
+  margin: 0 0 22px;
+}
+
+/* Deliverable footer */
+.zs-gets {
+  margin-top: auto; padding-top: 16px;
+  border-top: 1px dashed rgba(255,255,255,.16);
+  display: flex; align-items: flex-start; gap: 9px;
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 11.5px; line-height: 1.5; letter-spacing: .02em;
+  color: #5E5D72;
+}
+.zs-gets svg { flex: none; margin-top: 1px; color: #00E5B0; }
+.zs-gets b { color: #9695AB; font-weight: 500; }
+
+/* Footer CTA */
+.zs-foot {
+  margin-top: clamp(38px,4.5vw,56px);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 22px; flex-wrap: wrap;
+}
+.zs-foot > p { font-size: 15px; color: #9695AB; margin: 0; max-width: 46ch; }
+.zs-cta {
+  display: inline-flex; align-items: center; gap: 11px;
+  background: #5B3FF8; color: #fff;
+  font-size: 15px; font-weight: 600; letter-spacing: -.005em;
+  text-decoration: none; padding: 15px 26px; border-radius: 10px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  white-space: nowrap;
+}
+.zs-cta:hover {
+  background: #4B31E0; transform: translateY(-2px);
+  box-shadow: 0 14px 30px -12px rgba(91,63,248,.7);
+}
+.zs-cta svg { transition: transform .25s ease; }
+.zs-cta:hover svg { transform: translateX(3px); }
+
+@media (prefers-reduced-motion:reduce){
+  .zs-step { transition: none !important; }
+  .zs-cta { transition: none !important; }
+}
+</style>
 
 <!-- Featured Work Section -->
 <section id="portfolio" class="py-32 bg-[#FBFDFF]">
@@ -262,62 +426,132 @@
     </div>
 </section>
 
+<!-- FAQ Section -->
+<section id="faq" class="py-32 bg-[#FBFDFF] border-t border-slate-50">
+    <div class="container mx-auto px-6 max-w-[800px]">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-[48px] font-bold text-navy mb-4">Frequently Asked Questions</h2>
+            <p class="text-lg text-slate-500 font-medium leading-relaxed">Everything you need to know about my services and process.</p>
+        </div>
+        <div class="space-y-4">
+            {% for faq in faqs %}
+            <div class="bg-white border border-slate-100 rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                <button class="faq-button w-full text-left px-8 py-6 font-bold text-navy flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-lg pr-8">{{ faq.question }}</span>
+                    <i class="fa-solid fa-chevron-down text-teal transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-slate-50/50">
+                    <p class="px-8 pb-6 text-slate-500 leading-relaxed font-medium pt-2">{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleFaq(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector('i');
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-content').forEach(el => {
+        if (el !== content) {
+            el.style.maxHeight = null;
+            el.previousElementSibling.querySelector('i').classList.remove('rotate-180');
+        }
+    });
+
+    // Toggle current FAQ
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        icon.classList.remove('rotate-180');
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        icon.classList.add('rotate-180');
+    }
+}
+</script>
+
 <!-- Contact Section -->
 <section id="contact" class="py-32 bg-white relative overflow-hidden">
     <div class="container mx-auto px-6 max-w-[1280px] relative z-10">
         <div class="bg-slate-50 rounded-[48px] shadow-premium p-8 lg:p-20 border border-slate-100" data-aos="fade-up">
             <div class="grid lg:grid-cols-2 gap-20 items-start">
                 <!-- Left Column: Content -->
-                <div class="space-y-10">
+                <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 px-5 py-2 bg-purple/10 border border-purple/20 rounded-full">
                         <span class="text-purple text-xs font-bold uppercase tracking-wider font-mono">Free 30-Minute Email Audit</span>
                     </div>
                     
-                    <h2 class="text-[48px] lg:text-[64px] font-bold text-navy leading-[1.1]">
+                    <h2 class="text-[48px] lg:text-[56px] font-bold text-navy leading-[1.1]">
                         Find Out Why Your Emails <span class="text-purple italic font-medium">Aren't Converting</span>
                     </h2>
                     
-                    <ul class="space-y-5">
+                    <!-- Profile card -->
+                    <div class="flex items-center gap-5">
+                        <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-white shadow-lg flex-shrink-0">
+                            <img src="{{ about.image_path }}" alt="Shakil Ahmed" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-navy">Shakil Ahmed</h4>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Email Marketing Expert</p>
+                        </div>
+                    </div>
+
+                    <!-- Trust checklist -->
+                    <ul class="space-y-4">
                         <li class="flex items-start gap-4 text-slate-600 font-medium">
-                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal mt-1">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal mt-0.5">
                                 <i class="fa-solid fa-check text-[10px]"></i>
                             </div>
-                            I'll review your current setup and send you a written summary — no obligation
+                            Written audit delivered — no sales call required
                         </li>
-                        <li class="flex items-center gap-4 text-slate-600 font-medium">
-                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal">
+                        <li class="flex items-start gap-4 text-slate-600 font-medium">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal mt-0.5">
                                 <i class="fa-solid fa-check text-[10px]"></i>
                             </div>
                             Response within 24 hours, every time
                         </li>
-                        <li class="flex items-center gap-4 text-slate-600 font-medium">
-                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal">
+                        <li class="flex items-start gap-4 text-slate-600 font-medium">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex-shrink-0 flex items-center justify-center text-teal mt-0.5">
                                 <i class="fa-solid fa-check text-[10px]"></i>
                             </div>
                             Happy to sign an NDA on request
                         </li>
                     </ul>
-                    
-                    <div class="pt-8 flex flex-col gap-6">
-                        <div class="flex items-center gap-5">
-                            <div class="w-32 h-32 rounded-3xl overflow-hidden border-4 border-white shadow-xl">
-                                <img src="{{ about.image_path }}" alt="Profile" class="w-full h-full object-cover">
+
+                    <!-- Mini testimonial quote -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-premium relative">
+                        <div class="text-4xl text-purple/20 font-serif leading-none mb-2">"</div>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium italic">
+                            Shakil fixed our deliverability in less than a week. Our open rates went from 12% to 38% — we had no idea the issue was our sending domain.
+                        </p>
+                        <div class="flex items-center gap-3 mt-4 pt-4 border-t border-slate-50">
+                            <div class="flex text-yellow-400 text-xs gap-0.5">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
                             </div>
-                            <div>
-                                <h4 class="text-2xl font-bold text-navy">Shakil Ahmed</h4>
-                                <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Email Marketing Expert</p>
-                            </div>
+                            <span class="text-slate-400 text-[11px] font-bold uppercase tracking-wider">E-commerce Client, UK</span>
                         </div>
-                        <div class="space-y-3">
-                            <div class="flex items-center gap-3 text-navy font-bold">
-                                <i class="fa-solid fa-phone text-teal"></i>
-                                {{ settings.contact_phone }}
-                            </div>
-                            <div class="flex items-center gap-3 text-navy font-bold">
-                                <i class="fa-solid fa-envelope text-teal"></i>
-                                {{ settings.contact_email }}
-                            </div>
-                            <a href="#" class="text-teal font-black text-sm uppercase tracking-widest hover:underline decoration-2 underline-offset-4">Book a Call Directly</a>
+                    </div>
+
+                    <!-- Platform partner badges -->
+                    <div class="flex items-center gap-4 flex-wrap">
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                            <span class="text-[#FFE01B] text-lg"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="text-slate-700 text-xs font-bold">Mailchimp<br><span class="text-slate-400 font-medium">Pro Partner</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                            <span class="text-[#00B3A5] text-lg"><i class="fa-solid fa-bolt"></i></span>
+                            <span class="text-slate-700 text-xs font-bold">Klaviyo<br><span class="text-slate-400 font-medium">Partner</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                            <span class="text-teal text-lg"><i class="fa-solid fa-shield-halved"></i></span>
+                            <span class="text-slate-700 text-xs font-bold">DMARC<br><span class="text-slate-400 font-medium">Certified</span></span>
                         </div>
                     </div>
                 </div>
@@ -330,15 +564,9 @@
                             <input type="text" name="full_name" required placeholder="John Doe" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all">
                         </div>
                         
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-navy font-bold text-sm mb-3">Your Email</label>
-                                <input type="email" name="email" required placeholder="yourmail@gmail.com" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-navy font-bold text-sm mb-3">Whatsapp Number</label>
-                                <input type="text" name="whatsapp" placeholder="1123 1234567" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all">
-                            </div>
+                        <div>
+                            <label class="block text-navy font-bold text-sm mb-3">Your Email</label>
+                            <input type="email" name="email" required placeholder="yourmail@gmail.com" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-teal transition-all">
                         </div>
                         
                         <div>
@@ -362,6 +590,9 @@
                             Let's Connect
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
+                        <p class="text-center text-xs text-slate-400 mt-4">
+                            I'll only use your details to reply. See the <a href="{{ url_for('privacy_policy') }}" class="text-teal hover:underline" target="_blank">privacy policy</a>.
+                        </p>
                     </div>
                 </form>
             </div>

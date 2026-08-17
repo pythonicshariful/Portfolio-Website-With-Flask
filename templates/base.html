@@ -5,6 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ settings.meta_title }}</title>
     <meta name="description" content="{{ settings.meta_description }}">
+    <link rel="canonical" href="https://zeplostudio.com/">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Zeplo Studio",
+      "description": "Email marketing, deliverability, and web development studio specialising in Mailchimp and Klaviyo.",
+      "url": "https://zeplostudio.com/",
+      "logo": "https://zeplostudio.com/static/logo.png",
+      "image": "https://zeplostudio.com/static/og-image.jpg",
+      "email": "info@zeplostudio.com",
+      "priceRange": "$$",
+      "areaServed": "Worldwide",
+      "founder": {
+        "@type": "Person",
+        "name": "Shakil Ahmed",
+        "jobTitle": "Email Marketing Specialist",
+        "knowsAbout": [
+          "Email Marketing", "Mailchimp", "Klaviyo",
+          "Email Deliverability", "Marketing Automation", "DMARC"
+        ]
+      },
+      "sameAs": [
+        "{{ settings.fiverr_link }}",
+        "{{ settings.cv_link }}"
+      ]
+    }
+    </script>
+    
+    {% if faqs %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for faq in faqs %}
+        {
+          "@type": "Question",
+          "name": "{{ faq.question | escape }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ faq.answer | escape }}"
+          }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    </script>
+    {% endif %}
     
     <!-- Google Analytics -->
     {% if settings.google_analytics_id %}
@@ -54,13 +105,7 @@
         <div class="container mx-auto px-6 max-w-[1280px]">
             <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-[32px] px-8 py-4 flex items-center justify-between shadow-premium">
                 <a href="/" class="flex items-center gap-3 group" aria-label="Zeplo Studio — Email Marketing & Web Design">
-                    <div class="w-10 h-10 bg-purple rounded-full flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-[16px] font-bold tracking-tight text-[#1E3A5F] leading-none">Zeplo Studio</span>
-                        <span class="text-[12px] text-slate-500 font-medium font-mono">led by Shakil Ahmed</span>
-                    </div>
+                    <img src="{{ url_for('static', filename='images/zeplo-lockup-animated.svg') }}" alt="Zeplo Studio Logo" class="h-10 object-contain transition-transform duration-500 group-hover:scale-105">
                 </a>
                 
                 <div class="hidden md:flex items-center gap-12">
@@ -121,22 +166,15 @@
                     <h4 class="text-white font-bold text-lg mb-8">Quick Links</h4>
                     <ul class="space-y-4">
                         <li><a href="#portfolio" class="text-white/70 hover:text-white transition-colors font-medium">Portfolio</a></li>
-                        <li><a href="#about" class="text-white/70 hover:text-white transition-colors font-medium">About</a></li>
-                        <li><a href="#contact" class="text-white/70 hover:text-white transition-colors font-medium">Contact</a></li>
-                        <li><a href="#" class="text-white/70 hover:text-white transition-colors font-medium">Privacy Policy</a></li>
+                        <li><a href="{{ url_for('index') }}#about" class="text-white/70 hover:text-white transition-colors font-medium">About</a></li>
+                        <li><a href="{{ url_for('index') }}#contact" class="text-white/70 hover:text-white transition-colors font-medium">Contact</a></li>
+                        <li><a href="{{ url_for('privacy_policy') }}" class="text-white/70 hover:text-white transition-colors font-medium">Privacy Policy</a></li>
                     </ul>
                 </div>
                 
                 <!-- Column 4: Connect -->
                 <div>
                     <h4 class="text-white font-bold text-lg mb-8">Connect</h4>
-                    <div class="flex gap-4 mb-10">
-                        {% for s in social_links %}
-                        <a href="{{ s.link }}" class="w-10 h-10 border border-white/30 hover:bg-white/10 text-white rounded-full flex items-center justify-center transition-all duration-300">
-                            <i class="fa-brands fa-{{ s.icon_name }} text-lg"></i>
-                        </a>
-                        {% endfor %}
-                    </div>
                     <div class="space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-2 border border-white/30 rounded-full text-white text-xs font-bold">
                             <i class="fa-solid fa-check text-[10px]"></i>
