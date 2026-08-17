@@ -104,7 +104,11 @@
             {% for service in services %}
             <div class="service-card group" data-category="{{ service.category }}" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
                 <div class="w-12 h-12 bg-gradient-to-br from-navy to-teal rounded-xl flex items-center justify-center text-white mb-6">
+                    {% if service.icon_name %}
                     <i class="fa-solid fa-{{ service.icon_name }} text-xl"></i>
+                    {% else %}
+                    <i class="fa-solid fa-envelope text-xl"></i>
+                    {% endif %}
                 </div>
                 <h3 class="text-[18px] font-bold text-navy mb-3">{{ service.title }}</h3>
                 <p class="text-[16px] text-slate-500 leading-relaxed">{{ service.description }}</p>
